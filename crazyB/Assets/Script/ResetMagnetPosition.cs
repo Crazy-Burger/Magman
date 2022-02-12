@@ -13,7 +13,9 @@ public class ResetMagnetPosition : MonoBehaviour
     {
         positiveMagnets = GameObject.FindGameObjectsWithTag("PositiveDynamic");
         negativeMagnets = GameObject.FindGameObjectsWithTag("NegativeDynamic");
-        for(int i = 0; i < positiveMagnets.Length; i++)
+        positiveInitialPositions = new Vector3[positiveMagnets.Length];
+        negativeInitialPositions = new Vector3[negativeMagnets.Length];
+        for (int i = 0; i < positiveMagnets.Length; i++)
         {
             positiveInitialPositions[i] = positiveMagnets[i].transform.position;
         }
@@ -27,7 +29,7 @@ public class ResetMagnetPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("R"))
+        if (Input.GetKeyDown("r"))
         {
             ResetMagnetPositions();
         }
@@ -35,13 +37,17 @@ public class ResetMagnetPosition : MonoBehaviour
 
     void ResetMagnetPositions()
     {
-        for(int i = 0; i < positiveMagnets.Length; i++)
+        Debug.Log(positiveMagnets.Length);
+        Debug.Log(positiveInitialPositions[0]);
+        Debug.Log(negativeMagnets.Length);
+        Debug.Log(negativeInitialPositions[0]);
+        for (int i = 0; i < positiveMagnets.Length; i++)
         {
             positiveMagnets[i].transform.position = positiveInitialPositions[i];
         }
         for (int i = 0; i < negativeMagnets.Length; i++)
         {
-            negativeMagnets[i].transform.position = positiveInitialPositions[i];
+            negativeMagnets[i].transform.position = negativeInitialPositions[i];
         }
     }
 }
