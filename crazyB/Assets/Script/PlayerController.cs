@@ -23,6 +23,21 @@ public class PlayerController : MonoBehaviour
     public float MagFieldRaidus = 5.0f;
 
 
+    //zero gravity area variable
+    public float zeroGravMoveForce = 0f;
+    public float normalMoveForce = 0f;
+    private float moveForce = 0f;
+    public bool inZeroGravityZone = false;
+    public bool withMagnet = false;
+    private float origGravityScale = 0f;
+    public string zeroGravTag = "";
+    private float origLinearDrag = 0f;
+    public float zeroGravLinearDrag = 0f;
+    private float origAngularDrag = 0f;
+    public float zeroGravAngularDrag = 0f;
+    public float rotForce = 0f;
+    //zero gravity area variable end
+
 
     private int amountOfJumpsLeft;
     private float movementInputDirection;
@@ -45,6 +60,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatisGround;
 
+    public GameObject magnetPrefab;
+
 
 
     private void Awake()
@@ -60,7 +77,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
-       
+        origGravityScale = rb.gravityScale;
+        origLinearDrag = rb.drag;
+        origAngularDrag = rb.angularDrag;
     }
 
     // Update is called once per frame
@@ -72,13 +91,27 @@ public class PlayerController : MonoBehaviour
         CheckJump();
         MouseClick();
         //UpdateAnimation();
+        if (Input.GetKeyDown("e") && withMagnet)
+        {
+            Debug.Log("EEEEE");
+            GameObject mg = Instantiate(magnetPrefab, transform.position + new Vector3(1, 1, 0), magnetPrefab.transform.rotation);
+           // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnet = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        if (withMagnet)
+        {
+
+        }
+
     }
 
     private void FixedUpdate()
     {
         ApplyMovement();
         CheckSurroundings();
-        
+
     }
 
 
@@ -96,11 +129,12 @@ public class PlayerController : MonoBehaviour
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !inZeroGravityZone)
         {
             if(isGrounded || (amountOfJumpsLeft>0) || (amountOfJumpsLeft > 0 && !isGrounded))
             {
                 NormalJump();
+
             }
             else
             {
@@ -136,20 +170,62 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
             
         }
+
+        moveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
+        rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
+        rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
+        rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == zeroGravTag)
+        {
+            inZeroGravityZone = true;
+        }
+
+
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == zeroGravTag)
+        {
+            inZeroGravityZone = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Magnet"))
+        {
+            withMagnet = true;
+            Destroy(collision.gameObject);
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+        }
+    }
 
     private void ApplyMovement()
     {
-        if (!isGrounded && movementInputDirection == 0)
+        if (!inZeroGravityZone)
         {
-            rb.velocity = new Vector2(rb.velocity.x * varibleJumpHeightMultiplier, rb.velocity.y);
+            if (!isGrounded && movementInputDirection == 0)
+            {
+                rb.velocity = new Vector2(rb.velocity.x * varibleJumpHeightMultiplier, rb.velocity.y);
+            }
+            else if (canMove)
+            {
+                rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+            }
         }
-        else if (canMove)
+        else
         {
-            rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+            float h = Input.GetAxisRaw("Horizontal") * moveForce;
+            float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * moveForce : 0f;
+            rb.AddForce(new Vector2(h, v));
+            rb.AddTorque(-rotForce);
         }
-
+        
 
     }
 

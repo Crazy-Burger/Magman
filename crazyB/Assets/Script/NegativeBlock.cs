@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositiveBlock : MonoBehaviour
+public class NegativeBlock : MonoBehaviour
 {
     private float MagFieldRaidus;
     public GameData PlayerData;
@@ -19,7 +19,7 @@ public class PositiveBlock : MonoBehaviour
         float distance = Vector2.Distance(transform.position, Player.transform.position);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.black)
         {
-            Vector2 direction = Player.transform.position - transform.position;
+            Vector2 direction =  transform.position - Player.transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 10, distance)));
         }
     }
