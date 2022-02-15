@@ -10,6 +10,7 @@ TagManager:
   - Negative
   - PositiveDynamic
   - NegativeDynamic
+  - Rock
   layers:
   - Default
   - TransparentFX
