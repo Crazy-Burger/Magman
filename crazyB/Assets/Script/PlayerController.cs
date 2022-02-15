@@ -93,18 +93,28 @@ public class PlayerController : MonoBehaviour
         //UpdateAnimation();
         if (Input.GetKeyDown("e") && withMagnet)
         {
-            Debug.Log("EEEEE");
+            
             GameObject mg = Instantiate(magnetPrefab, transform.position + new Vector3(1, 1, 0), magnetPrefab.transform.rotation);
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnet = false;
             gameObject.GetComponent<Renderer>().material.color = Color.red;
         }
-
-        if (withMagnet)
+        
+        //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
+        //press "r" to throw the magnet
+        if (Input.GetKeyDown("q") && withMagnet)
         {
-
+            GameObject magnet = Instantiate(magnetPrefab, transform.position + new Vector3(1, 1, 0), magnetPrefab.transform.rotation);
+            if (isFacingRight) {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = - transform.right * 20;
+            }
+            withMagnet = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
         }
-
     }
 
     private void FixedUpdate()

@@ -12,6 +12,7 @@ TagManager:
   - NegativeDynamic
   - ZeroGravArea
   - Magnet
+  - Iron
   layers:
   - Default
   - TransparentFX
