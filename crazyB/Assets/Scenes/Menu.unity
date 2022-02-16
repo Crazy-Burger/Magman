@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8791747365473692353, guid: 6e04d1a806c3d46aea0d6bcb467dd0f1, type: 3}
       propertyPath: m_text
-      value: PLAY
+      value: Start
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e04d1a806c3d46aea0d6bcb467dd0f1, type: 3}
