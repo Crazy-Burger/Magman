@@ -19,13 +19,13 @@ public class FinishLine : MonoBehaviour
         if(collision.tag == "Player")
         {
 
-            CompeleteLevel();
+            //CompeleteLevel();
             gm.lastCheckPointPos.x = -9;
             gm.lastCheckPointPos.y = -1.7f;
             //After build each level, go to File>>build setting, drag each scene in order
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
             //Restart();
-            Invoke("Restart", restartDelay);
+            //Invoke("Restart", restartDelay);
 
         }
     }
