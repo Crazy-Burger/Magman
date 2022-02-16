@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public float MagFieldRaidus = 5.0f;
 
-
+    public bool inMagneticZone = false;
 
     private int amountOfJumpsLeft;
     private float movementInputDirection;
@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatisGround;
 
-
+    private float origGravityScale = 0.0f;
+    private float selfMagneticScale = 0.0f;
+    private float moveForce = 0.0f;
 
     private void Awake()
     {
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
-       
+        origGravityScale = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckJump();
         MouseClick();
+        applyMagneticZoneForceUp();
         //UpdateAnimation();
     }
 
@@ -78,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-        
+        applyMagneticZoneToBody();
     }
 
 
@@ -350,6 +353,45 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "Positive"){
+            Debug.Log("Enter magnetic zone");
+            inMagneticZone = true;
+            GameObject gb = other.gameObject;
+            MagneticZone zone = gb.GetComponent<MagneticZone>();
+            selfMagneticScale = zone.magneticMoveForce;
+        }
+    }
 
-  
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.tag == "Positive") {
+            Debug.Log("Exit magnetic zone");
+            inMagneticZone = false;
+            selfMagneticScale = 0.0f;
+        }
+    }
+
+    private void applyMagneticZoneForceUp(){
+        if (Input.GetKey(";")) {
+            Debug.Log("press on Apply Magnetic");
+            Debug.Log("is in magnetic zone: " + inMagneticZone);
+            moveForce = inMagneticZone ? selfMagneticScale : 0.0f;
+            rb.gravityScale = inMagneticZone ? 0.0f : origGravityScale;
+            Debug.Log("player gravity scale is " + rb.gravityScale);
+            float h = moveForce;
+            float v = inMagneticZone ? (moveForce) : 0;
+            Debug.Log("h: " + h + ", v: " + v);
+            rb.AddForce(new Vector2(0, v));
+        }
+        else {
+            rb.gravityScale = origGravityScale;
+        }
+    }
+
+    private void applyMagneticZoneToBody(){
+        if (Input.GetKeyDown(";")) {
+            
+        }
+    }
+
 }
