@@ -37,7 +37,7 @@ public class PositiveMagenet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron")
+        if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.blue))
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
@@ -45,9 +45,9 @@ public class PositiveMagenet : MonoBehaviour
             newMag.transform = collider.transform;
             newMag.magneticPole = 1;
             magnetizedObjects.Add(newMag);
-            print("Negative");
+            print("NegativeMagnet");
         }
-        else if (collider.gameObject.tag == "Positive")
+        else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.red))
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
@@ -55,13 +55,13 @@ public class PositiveMagenet : MonoBehaviour
             newMag.transform = collider.transform;
             newMag.magneticPole = -1;
             magnetizedObjects.Add(newMag);
-            print("Positive");
+            print("PositiveMagnet");
         }
     }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("Positive") || collider.CompareTag("Negative") || collider.CompareTag("Iron"))
+        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative") || (collider.gameObject.tag == "player" && (collider.GetComponent<Renderer>().material.color == Color.blue || collider.GetComponent<Renderer>().material.color == Color.red)))
         {
             for (int i = 0; i < magnetizedObjects.Count; i++)
             {
