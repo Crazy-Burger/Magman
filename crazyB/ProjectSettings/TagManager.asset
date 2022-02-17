@@ -13,6 +13,9 @@ TagManager:
   - ZeroGravArea
   - Magnet
   - Iron
+  - Rock
+  - NegativeMagnet
+  - PositiveMagnet
   layers:
   - Default
   - TransparentFX

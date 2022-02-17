@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
     public float normalMoveForce = 0f;
     private float moveForce = 0f;
     public bool inZeroGravityZone = false;
-    public bool withMagnet = false;
+    public bool withMagnetPositive = false;
+    public bool withMagnetNegative = false;
     private float origGravityScale = 0f;
     public string zeroGravTag = "";
     private float origLinearDrag = 0f;
@@ -60,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatisGround;
 
-    public GameObject magnetPrefab;
+    public GameObject magnetPositivePrefab;
+    public GameObject magnetNegativePrefab;
 
 
 
@@ -91,20 +93,31 @@ public class PlayerController : MonoBehaviour
         CheckJump();
         MouseClick();
         //UpdateAnimation();
-        if (Input.GetKeyDown("e") && withMagnet)
+        if (Input.GetKeyDown("e") && withMagnetPositive)
         {
             
-            GameObject mg = Instantiate(magnetPrefab, transform.position + new Vector3(1, 1, 0), magnetPrefab.transform.rotation);
+            GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnet = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
         }
-        
+
+        if (Input.GetKeyDown("e") && withMagnetNegative)
+        {
+
+            GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+        }
+
+
+
         //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
         //press "r" to throw the magnet
-        if (Input.GetKeyDown("q") && withMagnet)
+        if (Input.GetKeyDown("q") && withMagnetPositive)
         {
-            GameObject magnet = Instantiate(magnetPrefab, transform.position + new Vector3(1, 1, 0), magnetPrefab.transform.rotation);
+            GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
             if (isFacingRight) {
                 magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
             }
@@ -112,8 +125,23 @@ public class PlayerController : MonoBehaviour
             {
                 magnet.GetComponent<Rigidbody2D>().velocity = - transform.right * 20;
             }
-            withMagnet = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+        }
+
+        if (Input.GetKeyDown("q") && withMagnetNegative)
+        {
+            GameObject magnet = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            if (isFacingRight)
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
+            }
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
         }
     }
 
@@ -207,12 +235,27 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Magnet"))
+        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
         {
-            withMagnet = true;
-            Destroy(collision.gameObject);
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+
         }
+        else
+        {
+            if (collision.gameObject.CompareTag("PositiveMagnet"))
+            {
+                withMagnetPositive = true;
+                Destroy(collision.gameObject);
+                gameObject.GetComponent<Renderer>().material.color = Color.red;
+            }
+            if (collision.gameObject.CompareTag("NegativeMagnet"))
+            {
+                withMagnetNegative = true;
+                Destroy(collision.gameObject);
+                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            }
+        }
+
+        
     }
 
     private void ApplyMovement()

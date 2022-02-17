@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_Name
-      value: Positive Variant
+      value: Positive
       objectReference: {fileID: 0}
     - target: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_IsActive
@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_TagString
-      value: Positive
+      value: PositiveMagnet
       objectReference: {fileID: 0}
     - target: {fileID: 834677756602617565, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_Color.b
@@ -41,11 +41,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9075082429068011969, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.42
+      value: -15.67
       objectReference: {fileID: 0}
     - target: {fileID: 9075082429068011969, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: 9075082429068011969, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
       propertyPath: m_LocalPosition.z
