@@ -27,7 +27,14 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
-            var result = Analytics.CustomEvent(gm.lastCheckPointPos.ToString());
+            //var result = Analytics.CustomEvent(gm.lastCheckPointPos.ToString());
+            var result = Analytics.CustomEvent(
+                "checkpoint deaths",
+                new Dictionary<string, object>
+                {
+                    {"checkpoint", gm.lastCheckPointPos.ToString() }
+                }
+            );
             Debug.Log(result);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
