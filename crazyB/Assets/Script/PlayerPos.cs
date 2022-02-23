@@ -27,6 +27,9 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
+            //record player death in analytics
+            AnalyticsManager.instance.IncrementCheckpointDeaths(GameMaster.instance.lastCheckPointPos);
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         Debug.Log(collision.collider.name);
