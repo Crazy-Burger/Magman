@@ -27,6 +27,12 @@ public class FinishLine : MonoBehaviour
             //Restart();
             //Invoke("Restart", restartDelay);
 
+            /* 
+             * record time spent on the last checkpoint before finishline and upload analytics data
+             */
+            TimeManager.instance.EndTimer();
+            AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
+            AnalyticsManager.instance.UploadAnalyticsData();
         }
     }
 
