@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Analytics;
 
 public class PlayerPos : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class PlayerPos : MonoBehaviour
     {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         transform.position = gm.lastCheckPointPos;
+
     }
 
     void Update()
@@ -27,18 +27,9 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
-            //var result = Analytics.CustomEvent(gm.lastCheckPointPos.ToString());
-            var result = Analytics.CustomEvent(
-                "checkpoint deaths",
-                new Dictionary<string, object>
-                {
-                    {"checkpoint", gm.lastCheckPointPos.ToString() }
-                }
-            );
-            Debug.Log(result);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         Debug.Log(collision.collider.name);
     }
-    
+
 }
