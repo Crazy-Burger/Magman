@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Analytics;
 
 public class FinishLine : MonoBehaviour
 {
@@ -28,12 +27,6 @@ public class FinishLine : MonoBehaviour
             //Restart();
             //Invoke("Restart", restartDelay);
 
-            /* 
-             * record time spent on the last checkpoint before finishline and upload analytics data
-             */
-            TimeManager.instance.EndTimer();
-            AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
-            AnalyticsManager.instance.UploadAnalyticsData();
         }
     }
 

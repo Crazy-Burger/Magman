@@ -14,11 +14,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //update time spent on last checkpoint, and restart timer 
-            TimeManager.instance.EndTimer();
-            AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
-            TimeManager.instance.BeginTimer();
-
             gm.lastCheckPointPos = transform.position;
             activeCP = true;
         }
