@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,6 +10,18 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // Compute current level
+        int level = 1;
+        if (SceneManager.GetActiveScene().buildIndex==2)
+        {
+            level = 2;
+        }else if(SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            level = 3;
+        }
+        AnalyticsResult numPlayerIn = Analytics.CustomEvent("PlayLevel"+ level);
+        Debug.Log("Current level: "+level);
+        Debug.Log("analyticsResult Number of Player In: " + numPlayerIn);
     }
 
     public void QuitGame()
