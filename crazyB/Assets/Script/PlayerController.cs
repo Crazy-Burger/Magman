@@ -64,7 +64,8 @@ public class PlayerController : MonoBehaviour
     public GameObject magnetPositivePrefab;
     public GameObject magnetNegativePrefab;
 
-
+    // joint with the magnet
+    private bool hasJoint = false;
 
     private void Awake()
     {
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
         CheckMovementDirection();
         CheckIfCanJump();
         CheckJump();
-        MouseClick();
+        
         //UpdateAnimation();
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
@@ -111,11 +112,18 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.black;
         }
 
+        // press "e" to unjoin the magnet
+        if (Input.GetKeyDown("e") && hasJoint)
+        {
+            gameObject.AddComponent<FixedJoint2D>().enabled = false;
+            hasJoint = false;
 
+        }
+       
 
-        //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
-        //press "r" to throw the magnet
-        if (Input.GetKeyDown("q") && withMagnetPositive)
+            //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
+            //press "r" to throw the magnet
+            if (Input.GetKeyDown("q") && withMagnetPositive)
         {
             GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
             if (isFacingRight) {
@@ -149,7 +157,7 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-
+        MouseClick();
     }
 
 
@@ -233,29 +241,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
+    //    {
+
+    //    }
+    //    else
+    //    {
+    //        if (collision.gameObject.CompareTag("PositiveMagnet"))
+    //        {
+    //            withMagnetPositive = true;
+    //            Destroy(collision.gameObject);
+    //            gameObject.GetComponent<Renderer>().material.color = Color.red;
+    //        }
+    //        if (collision.gameObject.CompareTag("NegativeMagnet"))
+    //        {
+    //            withMagnetNegative = true;
+    //            Destroy(collision.gameObject);
+    //            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+    //        }
+    //    }
+    //}
+
+    // When the player hit the magnet, it joints with the magnet
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
-        {
 
-        }
-        else
+        if (collision.gameObject.CompareTag("Positive") || collision.gameObject.CompareTag("Negative"))
         {
-            if (collision.gameObject.CompareTag("PositiveMagnet"))
+            if (collision.gameObject.GetComponent<Rigidbody2D>() != null)
             {
-                withMagnetPositive = true;
-                Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
-            }
-            if (collision.gameObject.CompareTag("NegativeMagnet"))
-            {
-                withMagnetNegative = true;
-                Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                //// Change the tag of collider to player, prevent the player jump multi times
+                //collision.gameObject.layer = LayerMask.NameToLayer("Player");
+                //gameObject.AddComponent<HingeJoint2D>();
+                //gameObject.GetComponent<HingeJoint2D>().connectedBody = collision.rigidbody;
+
+
+                gameObject.AddComponent<FixedJoint2D>();
+                gameObject.GetComponent<FixedJoint2D>().connectedBody = collision.rigidbody;
+
+                hasJoint = true;
             }
         }
-
         
+
     }
 
     private void ApplyMovement()
@@ -471,7 +501,7 @@ public class PlayerController : MonoBehaviour
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
-                        hit.collider.attachedRigidbody.AddForce(-direction.normalized * Mathf.Lerp(0, 20, distance));
+                        hit.collider.attachedRigidbody.AddForce(-direction.normalized * Mathf.Lerp(0, 200, distance));
                     }
                 }
                 
