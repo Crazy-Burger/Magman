@@ -128,7 +128,7 @@ public class AnalyticsManager : MonoBehaviour
                     {"checkpoint3", checkpointJumps["checkpoint3"] }
                 }
             );
-        Debug.Log(result);
+        Debug.Log("check out jumps: "+result);
         result = Analytics.CustomEvent(
                 "Time Spent on Checkpoints",
                 checkpointTimeSpent
