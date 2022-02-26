@@ -8,6 +8,8 @@ public class AnalyticsManager : MonoBehaviour
     public static AnalyticsManager instance;
     public Dictionary<string, int> checkpointDeaths;
     public Dictionary<string, object> checkpointTimeSpent;
+    public Dictionary<string, int> checkpointJumps;
+
     public Vector2[] checkpoints = { new Vector2(-9.0f, -1.7f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f) };
     private void Awake()
     {
@@ -29,6 +31,12 @@ public class AnalyticsManager : MonoBehaviour
                 {"checkpoint1", "0" },
                 {"checkpoint2", "0" },
                 {"checkpoint3", "0" }
+            };
+            checkpointJumps = new Dictionary<string, int>()
+            {
+                {"checkpoint1", 0 },
+                {"checkpoint2", 0 },
+                {"checkpoint3", 0 }
             };
         }
         else
@@ -76,6 +84,28 @@ public class AnalyticsManager : MonoBehaviour
             Debug.LogError("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
         }
     }
+
+    public void IncrementCheckpointJumps(Vector2 checkpointPosition)
+    {
+        Debug.Log(checkpointPosition);
+        if (checkpointPosition == checkpoints[0]) // checkpoint1
+        {
+            checkpointJumps["checkpoint1"] += 1;
+        }
+        else if (checkpointPosition == checkpoints[1])// checkpoint2
+        {
+            checkpointJumps["checkpoint2"] += 1;
+        }
+        else if (checkpointPosition == checkpoints[2])//checkpoint3
+        {
+            checkpointJumps["checkpoint3"] += 1;
+        }
+        else
+        {
+            //should not happen
+            Debug.LogError("checkpointJumps error.");
+        }
+    }
     public void UploadAnalyticsData()
     {
         //send checkpoint deaths and time spent on each checkpoint seperately as custom events.
@@ -86,6 +116,16 @@ public class AnalyticsManager : MonoBehaviour
                     {"checkpoint1", checkpointDeaths["checkpoint1"] },
                     {"checkpoint2", checkpointDeaths["checkpoint2"] },
                     {"checkpoint3", checkpointDeaths["checkpoint3"] }
+                }
+            );
+        Debug.Log(result);
+        result = Analytics.CustomEvent(
+                "Checkpoint Jumps",
+                new Dictionary<string, object>
+                {
+                    {"checkpoint1", checkpointJumps["checkpoint1"] },
+                    {"checkpoint2", checkpointJumps["checkpoint2"] },
+                    {"checkpoint3", checkpointJumps["checkpoint3"] }
                 }
             );
         Debug.Log(result);
