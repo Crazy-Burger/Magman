@@ -71,9 +71,8 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private float origGravityScale = 0.0f;
+
     private float selfMagneticScale = 0.0f;
-    private float moveForce = 0.0f;
 
 
     private void Awake()
@@ -494,23 +493,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "Positive"){
-            Debug.Log("Enter magnetic zone");
-            inMagneticZone = true;
-            GameObject gb = other.gameObject;
-            MagneticZone zone = gb.GetComponent<MagneticZone>();
-            selfMagneticScale = zone.magneticMoveForce;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other) {
+    //    if (other.gameObject.tag == "Positive"){
+    //        Debug.Log("Enter magnetic zone");
+    //        inMagneticZone = true;
+    //        GameObject gb = other.gameObject;
+    //        MagneticZone zone = gb.GetComponent<MagneticZone>();
+    //        selfMagneticScale = zone.magneticMoveForce;
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.tag == "Positive") {
-            Debug.Log("Exit magnetic zone");
-            inMagneticZone = false;
-            selfMagneticScale = 0.0f;
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D other) {
+    //    if (other.gameObject.tag == "Positive") {
+    //        Debug.Log("Exit magnetic zone");
+    //        inMagneticZone = false;
+    //        selfMagneticScale = 0.0f;
+    //    }
+    //}
 
     private void applyMagneticZoneForceUp(){
         if (Input.GetKey(";")) {
