@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-        applyMagneticZoneToBody();
     }
 
 
@@ -388,10 +387,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void applyMagneticZoneToBody(){
-        if (Input.GetKeyDown(";")) {
-            
-        }
-    }
 
 }
