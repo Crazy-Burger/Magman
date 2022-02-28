@@ -5616,8 +5616,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976316727}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.0373, y: 0.3381, z: 0}
-  m_LocalScale: {x: 1.4057658, y: 1.0676905, z: 1}
+  m_LocalPosition: {x: 24.0373, y: -0.002, z: 0}
+  m_LocalScale: {x: 1.4057658, y: 0.9996786, z: 1}
   m_Children: []
   m_Father: {fileID: 708166113}
   m_RootOrder: 1
@@ -5643,19 +5643,19 @@ CompositeCollider2D:
   - m_Collider: {fileID: 1976316731}
     m_ColliderPaths:
     - - X: -140563216
-        Y: -21351142
+        Y: -19991074
       - X: -140563216
-        Y: -53379716
+        Y: -49979428
       - X: 140563216
-        Y: -53379716
+        Y: -49979428
       - X: 140563216
-        Y: -21351142
+        Y: -19991074
   m_CompositePaths:
     m_Paths:
-    - - {x: 14.056293, y: -5.3379717}
-      - {x: 14.056293, y: -2.1351142}
-      - {x: -14.056322, y: -2.1351435}
-      - {x: -14.056293, y: -5.3379717}
+    - - {x: 14.056293, y: -4.997943}
+      - {x: 14.056293, y: -1.9991075}
+      - {x: -14.056322, y: -1.9991368}
+      - {x: -14.056293, y: -4.997943}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1976316730
@@ -6905,11 +6905,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4630765788823347047, guid: 778a28667f2989c4eacd0c2758c541dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.49
+      value: -33.19
       objectReference: {fileID: 0}
     - target: {fileID: 4630765788823347047, guid: 778a28667f2989c4eacd0c2758c541dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.51
+      value: 6.82
       objectReference: {fileID: 0}
     - target: {fileID: 4630765788823347047, guid: 778a28667f2989c4eacd0c2758c541dd, type: 3}
       propertyPath: m_LocalPosition.z
