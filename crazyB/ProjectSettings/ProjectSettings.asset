@@ -637,7 +637,7 @@ PlayerSettings:
     Build: 0
     Collab: 0
     Game Performance: 0
-    Legacy Analytics: 0
+    Legacy Analytics: 1
     Purchasing: 0
     UDP: 0
     Unity Ads: 0
@@ -654,10 +654,10 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: ebf8b4d7-0094-4b37-8d10-8a41e785f62d
+  cloudProjectId: 20f74f29-20cf-4e5d-86bf-407a98719126
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: CrazyB (1)
+  projectName: CrazyB
   organizationId: kevinkaiyuanyu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
