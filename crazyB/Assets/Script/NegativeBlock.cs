@@ -11,6 +11,7 @@ public class NegativeBlock : MonoBehaviour
     private void Start()
     {
         MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
+        this.Player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
