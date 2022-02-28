@@ -70,14 +70,14 @@ public class PlayerController : MonoBehaviour
     public GameObject magnetNegativePrefab;
 
 
-
+    private GameMaster gm;
 
     private float selfMagneticScale = 0.0f;
 
 
     private void Awake()
     {
-      
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
     }
 
 
@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
         }
 
         if (Input.GetKeyDown("e") && withMagnetNegative)
@@ -121,6 +122,7 @@ public class PlayerController : MonoBehaviour
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
         }
 
 
