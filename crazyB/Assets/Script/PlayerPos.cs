@@ -33,6 +33,7 @@ public class PlayerPos : MonoBehaviour
                 var result = Analytics.CustomEvent(
                     "Death_Reason_Obstacle_Moving"
                 );
+                Debug.Log("moving obstacle");
                 Debug.Log(result);
             }
             else
@@ -40,6 +41,7 @@ public class PlayerPos : MonoBehaviour
                 var result = Analytics.CustomEvent(
                    "Death_Reason_Obstacle_static"
                 );
+                Debug.Log("static obstacle");
                 Debug.Log(result);
             }
             //record player death in analytics
