@@ -27,11 +27,11 @@ public class PlayerController : MonoBehaviour
     //zero gravity area variable
     public float zeroGravMoveForce = 0f;
     public float normalMoveForce = 0f;
-    private float moveForce = 0f;
+    private float   ZeroGravityMoveForce = 0f;
     public bool inZeroGravityZone = false;
     public bool withMagnetPositive = false;
     public bool withMagnetNegative = false;
-    private float origGravityScale = 0f;
+    private float originGravityScale = 0f;
     public string zeroGravTag = "";
     private float origLinearDrag = 0f;
     public float zeroGravLinearDrag = 0f;
@@ -40,9 +40,11 @@ public class PlayerController : MonoBehaviour
     public float rotForce = 0f;
     //zero gravity area variable end
 
-
+	//Magnetic Zone variable
     public bool inMagneticZone = false;
-
+    private float moveForce = 0f;
+    private float selfMagneticScale = 0.0f;
+    private float origGravityScale = 0.0f;
 
     private int amountOfJumpsLeft;
     private float movementInputDirection;
@@ -72,8 +74,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-    private float selfMagneticScale = 0.0f;
-
+  
 
     private void Awake()
     {
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
-        origGravityScale = rb.gravityScale;
+        originGravityScale = rb.gravityScale;
 
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
@@ -223,7 +224,7 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        moveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
+        ZeroGravityMoveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
         rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
         rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
         rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
@@ -299,8 +300,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            float h = Input.GetAxisRaw("Horizontal") * moveForce;
-            float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * moveForce : 0f;
+            float h = Input.GetAxisRaw("Horizontal") * ZeroGravityMoveForce;
+            float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * ZeroGravityMoveForce : 0f;
             rb.AddForce(new Vector2(h, v));
             rb.AddTorque(-rotForce);
         }
@@ -505,23 +506,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive"){
-    //        Debug.Log("Enter magnetic zone");
-    //        inMagneticZone = true;
-    //        GameObject gb = other.gameObject;
-    //        MagneticZone zone = gb.GetComponent<MagneticZone>();
-    //        selfMagneticScale = zone.magneticMoveForce;
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive") {
-    //        Debug.Log("Exit magnetic zone");
-    //        inMagneticZone = false;
-    //        selfMagneticScale = 0.0f;
-    //    }
-    //}
 
     private void applyMagneticZoneForceUp(){
         if (Input.GetKey(";")) {
