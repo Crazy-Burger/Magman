@@ -10,7 +10,7 @@ public class AnalyticsManager : MonoBehaviour
     public Dictionary<string, object> checkpointTimeSpent;
     public Dictionary<string, int> ekeyUsageTimes;
     public Dictionary<string, int> checkpointJumps;
-    public Vector2[] checkpoints = { new Vector2(-9.0f, -1.7f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f) };
+    public Vector2[] checkpoints = { new Vector2(-9.0f, -1.0f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f) };
 
     private void Awake()
     {
