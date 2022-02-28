@@ -236,7 +236,13 @@ public class PlayerController : MonoBehaviour
             inZeroGravityZone = true;
         }
 
-
+        if (col.gameObject.tag == "MagneticZone"){
+            Debug.Log("Enter magnetic zone");
+            inMagneticZone = true;
+            GameObject gb = col.gameObject;
+            MagneticZone zone = gb.GetComponent<MagneticZone>();
+            selfMagneticScale = zone.magneticMoveForce;
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
@@ -244,6 +250,12 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.tag == zeroGravTag)
         {
             inZeroGravityZone = false;
+        }
+
+        if (col.gameObject.tag == "MagneticZone") {
+            Debug.Log("Exit magnetic zone");
+            inMagneticZone = false;
+            selfMagneticScale = 0.0f;
         }
     }
 
