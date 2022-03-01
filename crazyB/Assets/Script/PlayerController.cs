@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     public GameObject magnetPositivePrefab;
     public GameObject magnetNegativePrefab;
 
-
+    private GameMaster gm;
 
 
     private float selfMagneticScale = 0.0f;
@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
 
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
 
     }
 
@@ -186,6 +187,7 @@ public class PlayerController : MonoBehaviour
             if(isGrounded || (amountOfJumpsLeft>0) || (amountOfJumpsLeft > 0 && !isGrounded))
             {
                 NormalJump();
+                AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
 
             }
             else
@@ -434,7 +436,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.collider.tag == "Positive")
                 {
-                    Debug.Log("You selected the " + hit.transform.name);
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
@@ -451,7 +452,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Negative")
                 {
-                    Debug.Log("You selected the " + hit.transform.name);
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
@@ -477,7 +477,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.collider.tag == "Positive")
                 {
-                    Debug.Log("You selected the " + hit.transform.name);
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
@@ -487,7 +486,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Negative")
                 {
-                    Debug.Log("You selected the " + hit.transform.name);
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
@@ -496,7 +494,6 @@ public class PlayerController : MonoBehaviour
 
                 }else if (hit.collider.tag == "PositiveDynamic" || hit.collider.tag == "NegativeDynamic")
                 {
-                    Debug.Log("You selected the " + hit.transform.name);
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
