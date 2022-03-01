@@ -9,7 +9,7 @@ public class AnalyticsManager : MonoBehaviour
     public Dictionary<string, int> checkpointDeaths;
     public Dictionary<string, object> checkpointTimeSpent;
     public Dictionary<string, int> checkpointJumps;
-
+    public Dictionary<string, int> ekeyUsageTimes;
     public Vector2[] checkpoints = { new Vector2(-9.0f, -1.7f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f) };
     private void Awake()
     {
@@ -33,6 +33,12 @@ public class AnalyticsManager : MonoBehaviour
                 {"checkpoint3", "0" }
             };
             checkpointJumps = new Dictionary<string, int>()
+            {
+                {"checkpoint1", 0 },
+                {"checkpoint2", 0 },
+                {"checkpoint3", 0 }
+            };
+            ekeyUsageTimes = new Dictionary<string, int>()
             {
                 {"checkpoint1", 0 },
                 {"checkpoint2", 0 },
@@ -106,6 +112,29 @@ public class AnalyticsManager : MonoBehaviour
             Debug.LogError("checkpointJumps error.");
         }
     }
+    
+    // E key analytics - increase the usage times of e key
+    public void IncrementEkeyUsageTimes(Vector2 checkpointPosition)
+    {
+        if (checkpointPosition == checkpoints[0]) // checkpoint1
+        {
+            ekeyUsageTimes["checkpoint1"] += 1;
+        }
+        else if (checkpointPosition == checkpoints[1])// checkpoint2
+        {
+            ekeyUsageTimes["checkpoint2"] += 1;
+        }
+        else if (checkpointPosition == checkpoints[2])//checkpoint3
+        {
+            ekeyUsageTimes["checkpoint3"] += 1;
+        }
+        else
+        {
+            //should not happen
+            Debug.LogError("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
+        }
+    }
+
     public void UploadAnalyticsData()
     {
         //send checkpoint deaths and time spent on each checkpoint seperately as custom events.
@@ -129,6 +158,16 @@ public class AnalyticsManager : MonoBehaviour
                 }
             );
         Debug.Log("check out jumps: "+result);
+        result = Analytics.CustomEvent(
+               "Ekey Usage Times",
+               new Dictionary<string, object>
+               {
+                    {"checkpoint1", ekeyUsageTimes["checkpoint1"] },
+                    {"checkpoint2", ekeyUsageTimes["checkpoint2"] },
+                    {"checkpoint3", ekeyUsageTimes["checkpoint3"] }
+               }
+           );
+        Debug.Log("ekey analytics result: " + result);
         result = Analytics.CustomEvent(
                 "Time Spent on Checkpoints",
                 checkpointTimeSpent
