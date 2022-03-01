@@ -61,7 +61,7 @@ public class AnalyticsManager : MonoBehaviour
         else
         {
             //should not happen
-            Debug.LogError("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
+            Debug.LogWarning("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
         }
     }
     public void RecordCheckpointTimeSpent(Vector2 checkpointPosition, string time)
@@ -81,7 +81,7 @@ public class AnalyticsManager : MonoBehaviour
         else
         {
             //should not happen
-            Debug.LogError("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
+            Debug.LogWarning("received wrong checkpoint position in analytics. please check if you have changed the position of checkpoints. if yes, you need to change the values of checkpoints[] accordingly.");
         }
     }
 
