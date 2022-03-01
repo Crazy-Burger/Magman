@@ -309,6 +309,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
+            rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
+            rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
             float h = Input.GetAxisRaw("Horizontal") * moveForce;
             float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * moveForce : 0f;
             rb.AddForce(new Vector2(h, v));
