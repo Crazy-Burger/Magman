@@ -299,6 +299,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
+            rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
+            rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
             float h = Input.GetAxisRaw("Horizontal") * moveForce;
             float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * moveForce : 0f;
             rb.AddForce(new Vector2(h, v));
@@ -527,11 +530,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(";")) {
             Debug.Log("press on Apply Magnetic");
             Debug.Log("is in magnetic zone: " + inMagneticZone);
-            moveForce = inMagneticZone ? selfMagneticScale : 0.0f;
+            float magneticForce = inMagneticZone ? selfMagneticScale : 0.0f;
             rb.gravityScale = inMagneticZone ? 0.0f : origGravityScale;
             Debug.Log("player gravity scale is " + rb.gravityScale);
-            float h = moveForce;
-            float v = inMagneticZone ? (moveForce) : 0;
+            float h = magneticForce;
+            float v = inMagneticZone ? (magneticForce) : 0;
             Debug.Log("h: " + h + ", v: " + v);
             rb.AddForce(new Vector2(0, v));
         }
