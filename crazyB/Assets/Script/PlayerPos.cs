@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class PlayerPos : MonoBehaviour
 {
@@ -27,6 +28,25 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
+            if (collision.collider.name == "Moving_Obstacle")
+            {
+                var result = Analytics.CustomEvent(
+                    "Death_Reason_Obstacle_Moving"
+                );
+                Debug.Log("moving obstacle");
+                Debug.Log(result);
+            }
+            else
+            {
+                var result = Analytics.CustomEvent(
+                   "Death_Reason_Obstacle_static"
+                );
+                Debug.Log("static obstacle");
+                Debug.Log(result);
+            }
+            //record player death in analytics
+            AnalyticsManager.instance.IncrementCheckpointDeaths(GameMaster.instance.lastCheckPointPos);
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         Debug.Log(collision.collider.name);
