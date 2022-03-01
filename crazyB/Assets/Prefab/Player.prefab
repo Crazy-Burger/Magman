@@ -43,10 +43,9 @@ GameObject:
   - component: {fileID: 6275815712460294432}
   - component: {fileID: 6275815712460294435}
   - component: {fileID: 6275815712460294463}
-  - component: {fileID: 1779537592}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +106,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -698430232215783580, guid: e3f4e1a1ccac3084b8d26486b7d866a4, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,7 +131,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -187,30 +186,6 @@ MonoBehaviour:
   amountOfJumps: 2
   turnTimerSet: 0.1
   facingDirection: 1
-  MagFieldRaidus: 5
-  zeroGravMoveForce: 20
-  normalMoveForce: 40
-  inZeroGravityZone: 0
-  withMagnetPositive: 0
-  withMagnetNegative: 0
-  zeroGravTag: ZeroGravArea
-  zeroGravLinearDrag: 1
-  zeroGravAngularDrag: 0.5
-  rotForce: 0
   whatisGround:
     serializedVersion: 2
     m_Bits: 64
-  magnetPositivePrefab: {fileID: 6833390005018339368, guid: 785601fbfbabf408cb912b22087cb5b2, type: 3}
-  magnetNegativePrefab: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
---- !u!114 &1779537592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275815712460294434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ec64e47938f747c280777ee02ffb3e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

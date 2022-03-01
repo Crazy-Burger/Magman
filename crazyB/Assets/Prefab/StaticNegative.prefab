@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 7212163650144292781}
   - component: {fileID: 7212163650144292752}
   - component: {fileID: 7212163650144292783}
-  - component: {fileID: 817999570}
-  - component: {fileID: 6817778518612894487}
-  - component: {fileID: 1069721656}
   m_Layer: 0
   m_Name: StaticNegative
   m_TagString: Negative
@@ -31,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7212163650144292780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -43.41, y: -4.18, z: 0}
-  m_LocalScale: {x: 4.80053, y: 0.62381476, z: 1.01}
+  m_LocalScale: {x: 24.00265, y: 0.62381476, z: 1.01}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -134,47 +131,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &817999570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212163650144292780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b568fd37b66b3499e3efc6a6daeef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerData: {fileID: 11400000, guid: be620ace5923fd848ba72bbdad96d50b, type: 2}
-  Player: {fileID: 0}
---- !u!114 &6817778518612894487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212163650144292780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15aafb1d3f84e40508b2cff4ad9a4d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 5
-  strength: 25
---- !u!58 &1069721656
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7212163650144292780}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
