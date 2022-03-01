@@ -138,6 +138,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
             
         }
+<<<<<<< Updated upstream
+=======
+
+        moveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
+        rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
+        rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
+        rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
+        
+>>>>>>> Stashed changes
     }
 
 
@@ -149,7 +158,19 @@ public class PlayerController : MonoBehaviour
         }
         else if (canMove)
         {
+<<<<<<< Updated upstream
             rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+=======
+            Debug.Log("move inside zero gravity");
+            rb.gravityScale = inZeroGravityZone ? 0f : origGravityScale;
+            rb.drag = inZeroGravityZone ? zeroGravLinearDrag : origLinearDrag;
+            rb.angularDrag = inZeroGravityZone ? zeroGravAngularDrag : origAngularDrag;
+            Debug.Log("player gravity scale in zero gravity is " + rb.gravityScale);
+            float h = Input.GetAxisRaw("Horizontal") * moveForce;
+            float v = inZeroGravityZone ? Input.GetAxisRaw("Vertical") * moveForce : 0f;
+            rb.AddForce(new Vector2(h, v));
+            rb.AddTorque(-rotForce);
+>>>>>>> Stashed changes
         }
 
 
@@ -374,11 +395,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(";")) {
             Debug.Log("press on Apply Magnetic");
             Debug.Log("is in magnetic zone: " + inMagneticZone);
-            moveForce = inMagneticZone ? selfMagneticScale : 0.0f;
+            float magneticForce = inMagneticZone ? selfMagneticScale : 0.0f;
             rb.gravityScale = inMagneticZone ? 0.0f : origGravityScale;
             Debug.Log("player gravity scale is " + rb.gravityScale);
-            float h = moveForce;
-            float v = inMagneticZone ? (moveForce) : 0;
+            float h = magneticForce;
+            float v = inMagneticZone ? (magneticForce) : 0;
             Debug.Log("h: " + h + ", v: " + v);
             rb.AddForce(new Vector2(0, v));
         }
