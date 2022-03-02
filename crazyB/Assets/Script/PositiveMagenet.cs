@@ -5,22 +5,25 @@ using UnityEngine;
 public class PositiveMagenet : MonoBehaviour
 {
 
-    public float range;
-    public float strength;
-    List<MagnetizedObject> magnetizedObjects;
+    public float range = 5.0f;
+    public float strength = 10.0f;
+    private List<MagnetizedObject> postiveMagnetizedObjects;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        magnetizedObjects = new List<MagnetizedObject>();
+        postiveMagnetizedObjects = new List<MagnetizedObject>();
         gameObject.GetComponent<CircleCollider2D>().radius = range;
     }
 
     public void FixedUpdate()
     {
-        foreach (MagnetizedObject v in magnetizedObjects)
+        if (postiveMagnetizedObjects.Count != 0)
         {
-            ApplyMagneticForce(v);
+            foreach (MagnetizedObject v in postiveMagnetizedObjects)
+            {
+                ApplyMagneticForce(v);
+            }
         }
     }
 
@@ -37,37 +40,43 @@ public class PositiveMagenet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.blue))
+        if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron" ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
             newMag.rb = collider.GetComponent<Rigidbody2D>();
             newMag.transform = collider.transform;
             newMag.magneticPole = 1;
-            magnetizedObjects.Add(newMag);
-            print("NegativeMagnet");
+            postiveMagnetizedObjects.Add(newMag);
         }
-        else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.red))
+        else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive" ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+            )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
             newMag.rb = collider.GetComponent<Rigidbody2D>();
             newMag.transform = collider.transform;
             newMag.magneticPole = -1;
-            magnetizedObjects.Add(newMag);
-            print("PositiveMagnet");
+            postiveMagnetizedObjects.Add(newMag);
         }
     }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative") || (collider.gameObject.tag == "player" && (collider.GetComponent<Renderer>().material.color == Color.blue || collider.GetComponent<Renderer>().material.color == Color.red)))
+        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative") ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+            ||(collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
-            for (int i = 0; i < magnetizedObjects.Count; i++)
+            print("Positive magnet list:" + collider.tag);
+            for (int i = 0; i < postiveMagnetizedObjects.Count; i++)
             {
-                if (magnetizedObjects[i].collider == collider)
+                if (postiveMagnetizedObjects[i].collider == collider)
                 {
-                    magnetizedObjects.RemoveAt(i);
+                    postiveMagnetizedObjects.RemoveAt(i);
                     break;
                 }
             }

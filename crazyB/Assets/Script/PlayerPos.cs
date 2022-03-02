@@ -49,7 +49,7 @@ public class PlayerPos : MonoBehaviour
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        Debug.Log(collision.collider.name);
+        // Debug.Log(collision.collider.name);
     }
 
 }

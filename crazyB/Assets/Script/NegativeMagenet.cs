@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class NegativeMagenet : MonoBehaviour
 {
-    
-    public float range;
-    public float strength;
-    List<MagnetizedObject> magnetizedObjects;
+
+    public float range = 5.0f;
+    public float strength = 10.0f;
+    private List<MagnetizedObject> negativeMagnetizedObjects;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        magnetizedObjects = new List<MagnetizedObject>();
+        negativeMagnetizedObjects = new List<MagnetizedObject>();
         gameObject.GetComponent<CircleCollider2D>().radius = range;
     }
     
     public void FixedUpdate()
     {
-        foreach (MagnetizedObject v in magnetizedObjects)
+        if (negativeMagnetizedObjects.Count != 0)
         {
-            ApplyMagneticForce(v);
+            foreach (MagnetizedObject v in negativeMagnetizedObjects)
+            {
+                ApplyMagneticForce(v);
+            }
         }
     }
 
@@ -37,37 +40,43 @@ public class NegativeMagenet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Iron" || collider.GetComponent<Renderer>().material.color == Color.red)
+        if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Iron" || 
+            (collider.tag=="Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+            )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
             newMag.rb = collider.GetComponent<Rigidbody2D>();
             newMag.transform = collider.transform;
             newMag.magneticPole = 1;
-            magnetizedObjects.Add(newMag);
-            print("PositiveMagnet");
+            negativeMagnetizedObjects.Add(newMag);
         }
-        else if (collider.gameObject.tag == "NegativeMagnet" || collider.GetComponent<Renderer>().material.color == Color.blue)
+        else if (collider.gameObject.tag == "NegativeMagnet" ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
             newMag.rb = collider.GetComponent<Rigidbody2D>();
             newMag.transform = collider.transform;
             newMag.magneticPole = -1;
-            magnetizedObjects.Add(newMag);
-            print("NegativeMagnet");
+            negativeMagnetizedObjects.Add(newMag);
         }
     }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || (collider.gameObject.tag == "player" && (collider.GetComponent<Renderer>().material.color == Color.blue || collider.GetComponent<Renderer>().material.color == Color.red)))
+        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") ||
+             (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+             || (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
-            for (int i = 0; i < magnetizedObjects.Count; i++)
+            print("Negative magnet list:" + collider.tag);
+            for (int i = 0; i < negativeMagnetizedObjects.Count; i++)
             {
-                if (magnetizedObjects[i].collider == collider)
+                if (negativeMagnetizedObjects[i].collider == collider)
                 {
-                    magnetizedObjects.RemoveAt(i);
+                    negativeMagnetizedObjects.RemoveAt(i);
                     break;
                 }
             }

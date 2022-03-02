@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
     public float normalMoveForce = 0f;
     private float moveForce = 0f;
     public bool inZeroGravityZone = false;
-    public bool withMagnetPositive = false;
-    public bool withMagnetNegative = false;
     private float origGravityScale = 0f;
     public string zeroGravTag = "";
     private float origLinearDrag = 0f;
@@ -74,6 +72,14 @@ public class PlayerController : MonoBehaviour
 
     private float selfMagneticScale = 0.0f;
 
+    // Player States
+    public enum PlayerStates
+    {
+        Normal,
+        Postitive,
+        Negative,
+    }
+    public PlayerStates playerState;
 
     private void Awake()
     {
@@ -92,6 +98,7 @@ public class PlayerController : MonoBehaviour
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+        playerState = PlayerStates.Normal;
 
     }
 
@@ -134,7 +141,7 @@ public class PlayerController : MonoBehaviour
             if(isGrounded || (amountOfJumpsLeft>0) || (amountOfJumpsLeft > 0 && !isGrounded))
             {
                 NormalJump();
-                AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
+                // AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
 
             }
             else
@@ -206,31 +213,6 @@ public class PlayerController : MonoBehaviour
             inMagneticZone = false;
             selfMagneticScale = 0.0f;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
-        {
-
-        }
-        else
-        {
-            if (collision.gameObject.CompareTag("PositiveMagnet"))
-            {
-                withMagnetPositive = true;
-                Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
-            }
-            if (collision.gameObject.CompareTag("NegativeMagnet"))
-            {
-                withMagnetNegative = true;
-                Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.blue;
-            }
-        }
-
-        
     }
 
     private void ApplyMovement()
@@ -469,29 +451,53 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Player picks the magnet when collision 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
+        {
+
+        }
+        else
+        {
+            if (collision.gameObject.CompareTag("PositiveMagnet"))
+            {
+                Destroy(collision.gameObject);
+                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                playerState = PlayerStates.Postitive;
+            }
+            if (collision.gameObject.CompareTag("NegativeMagnet"))
+            {
+                Destroy(collision.gameObject);
+                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                playerState = PlayerStates.Negative;
+            }
+        }
+    }
+
     // press "e" to drop the magnet
     private void Ekey()
     {
-        if (Input.GetKeyDown("e") && withMagnetPositive)
+        if (Input.GetKeyDown("e") && playerState == PlayerStates.Postitive)
         {
 
             GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            //AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
         }
 
-        if (Input.GetKeyDown("e") && withMagnetNegative)
+        if (Input.GetKeyDown("e") && playerState == PlayerStates.Negative)
         {
 
             GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            //AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
         }
     }
 
@@ -500,7 +506,7 @@ public class PlayerController : MonoBehaviour
     private void Qkey()
     {
         
-        if (Input.GetKeyDown("q") && withMagnetPositive)
+        if (Input.GetKeyDown("q") && playerState == PlayerStates.Postitive)
         {
             GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
             if (isFacingRight)
@@ -511,11 +517,11 @@ public class PlayerController : MonoBehaviour
             {
                 magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
             }
-            withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
 
-        if (Input.GetKeyDown("q") && withMagnetNegative)
+        if (Input.GetKeyDown("q") && playerState == PlayerStates.Negative)
         {
             GameObject magnet = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
             if (isFacingRight)
@@ -526,8 +532,8 @@ public class PlayerController : MonoBehaviour
             {
                 magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
             }
-            withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
     }
 
