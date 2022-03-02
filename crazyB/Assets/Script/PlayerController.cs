@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
         origGravityScale = rb.gravityScale;
-
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -103,75 +102,19 @@ public class PlayerController : MonoBehaviour
         CheckMovementDirection();
         CheckIfCanJump();
         CheckJump();
-        MouseClick();
-        applyMagneticZoneForceUp();
         //UpdateAnimation();
-        if (Input.GetKeyDown("e") && withMagnetPositive)
-        {
-            
-            GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
-           // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetPositive = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
-            // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
-        }
-
-        if (Input.GetKeyDown("e") && withMagnetNegative)
-        {
-
-            GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
-            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetNegative = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
-            // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
-        }
-
-
-
-        //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
-        //press "r" to throw the magnet
-        if (Input.GetKeyDown("q") && withMagnetPositive)
-        {
-            GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
-            if (isFacingRight) {
-                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
-            }
-            else
-            {
-                magnet.GetComponent<Rigidbody2D>().velocity = - transform.right * 20;
-            }
-            withMagnetPositive = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
-        }
-
-        if (Input.GetKeyDown("q") && withMagnetNegative)
-        {
-            GameObject magnet = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
-            if (isFacingRight)
-            {
-                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
-            }
-            else
-            {
-                magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
-            }
-            withMagnetNegative = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
-        }
+        Ekey();
+        Qkey();
     }
 
     private void FixedUpdate()
     {
         ApplyMovement();
         CheckSurroundings();
-
+        applyMagneticZoneForceUp();
         applyMagneticZoneToBody();
-
+        MouseClick();
     }
-
-
 
     //private void UpdateAnimation()
     //{
@@ -317,11 +260,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
-
-  
-
     private void CheckMovementDirection()
     {
         if (isFacingRight && movementInputDirection < 0)
@@ -356,8 +294,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-   private void CheckJump()//Jump again with a dely input
+    private void CheckJump()//Jump again with a dely input
     {
         if (jumpTimer > 0)
         {
@@ -373,6 +310,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
     private void NormalJump()
     {
         if (canNormalJump)
@@ -423,7 +361,6 @@ public class PlayerController : MonoBehaviour
         return facingDirection;
     }
 
- 
     private void MouseClick()
     {
         if (Input.GetMouseButton(0))
@@ -509,24 +446,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive"){
-    //        Debug.Log("Enter magnetic zone");
-    //        inMagneticZone = true;
-    //        GameObject gb = other.gameObject;
-    //        MagneticZone zone = gb.GetComponent<MagneticZone>();
-    //        selfMagneticScale = zone.magneticMoveForce;
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive") {
-    //        Debug.Log("Exit magnetic zone");
-    //        inMagneticZone = false;
-    //        selfMagneticScale = 0.0f;
-    //    }
-    //}
-
     private void applyMagneticZoneForceUp(){
         if (Input.GetKey(";")) {
             Debug.Log("press on Apply Magnetic");
@@ -547,6 +466,68 @@ public class PlayerController : MonoBehaviour
     private void applyMagneticZoneToBody(){
         if (Input.GetKeyDown(";")) {
             
+        }
+    }
+
+    // press "e" to drop the magnet
+    private void Ekey()
+    {
+        if (Input.GetKeyDown("e") && withMagnetPositive)
+        {
+
+            GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
+            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            // increase the ekey usage times in analytics
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+        }
+
+        if (Input.GetKeyDown("e") && withMagnetNegative)
+        {
+
+            GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            // increase the ekey usage times in analytics
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+        }
+    }
+
+    //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
+    //press "q" to throw the magnet
+    private void Qkey()
+    {
+        
+        if (Input.GetKeyDown("q") && withMagnetPositive)
+        {
+            GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
+            if (isFacingRight)
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
+            }
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+        }
+
+        if (Input.GetKeyDown("q") && withMagnetNegative)
+        {
+            GameObject magnet = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            if (isFacingRight)
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
+            }
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
         }
     }
 
