@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class WaypointFollower : MonoBehaviour
 {
@@ -22,5 +24,25 @@ public class WaypointFollower : MonoBehaviour
             }
         }
         transform.position = Vector2.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, Time.deltaTime * speed);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            
+            // Compute current level
+            int level = 1;
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                level = 2;
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 4)
+            {
+                level = 3;
+            }
+            AnalyticsResult dieOnMovingSpike = Analytics.CustomEvent("DieOnMovingSpikes" + level);
+            Debug.Log("analyticsResultDieOnMoving: " + dieOnMovingSpike);
+        }
     }
 }

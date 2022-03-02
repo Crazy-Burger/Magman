@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class FinishLine : MonoBehaviour
 {
@@ -33,6 +34,17 @@ public class FinishLine : MonoBehaviour
             TimeManager.instance.EndTimer();
             AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
             AnalyticsManager.instance.UploadAnalyticsData();
+            int currentLevel = 1;
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                currentLevel = 2;
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 5)
+            {
+                currentLevel = 3;
+            }
+            AnalyticsResult numPlayerWin = Analytics.CustomEvent("LevelWin" + currentLevel);
+            Debug.Log("analyticsResultPlayerWin: " + numPlayerWin);
         }
     }
 
