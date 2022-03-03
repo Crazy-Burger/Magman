@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
             if(isGrounded || (amountOfJumpsLeft>0) || (amountOfJumpsLeft > 0 && !isGrounded))
             {
                 NormalJump();
-                // AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
+                AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
 
             }
             else
@@ -485,7 +485,7 @@ public class PlayerController : MonoBehaviour
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
-            //AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
         }
 
@@ -496,7 +496,7 @@ public class PlayerController : MonoBehaviour
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
-            //AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
         }
     }

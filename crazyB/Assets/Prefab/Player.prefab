@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6275815712460294435}
   - component: {fileID: 6275815712460294463}
   - component: {fileID: 1779537592}
+  - component: {fileID: 1658882846917820482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -191,17 +192,17 @@ MonoBehaviour:
   zeroGravMoveForce: 20
   normalMoveForce: 40
   inZeroGravityZone: 0
-  withMagnetPositive: 0
-  withMagnetNegative: 0
   zeroGravTag: ZeroGravArea
   zeroGravLinearDrag: 1
   zeroGravAngularDrag: 0.5
   rotForce: 0
+  inMagneticZone: 0
   whatisGround:
     serializedVersion: 2
     m_Bits: 64
   magnetPositivePrefab: {fileID: 6833390005018339368, guid: 785601fbfbabf408cb912b22087cb5b2, type: 3}
   magnetNegativePrefab: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
+  playerState: 0
 --- !u!114 &1779537592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,3 +215,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec64e47938f747c280777ee02ffb3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1658882846917820482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275815712460294434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17721bdc8ff0e3b499972d2234716b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 5
+  strength: 10
+  player: {fileID: 0}
+  playerController: {fileID: 0}
+  state: 0
