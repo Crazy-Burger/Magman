@@ -37,7 +37,9 @@ public class PositiveMagenet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.blue))
+        if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron" ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
@@ -47,7 +49,9 @@ public class PositiveMagenet : MonoBehaviour
             magnetizedObjects.Add(newMag);
             print("NegativeMagnet");
         }
-        else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive" || (collider.gameObject.tag == "player" && collider.GetComponent<Renderer>().material.color == Color.red))
+        else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive" ||
+           (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+           )
         {
             MagnetizedObject newMag = new MagnetizedObject();
             newMag.collider = collider;
@@ -61,7 +65,10 @@ public class PositiveMagenet : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative") || (collider.gameObject.tag == "player" && (collider.GetComponent<Renderer>().material.color == Color.blue || collider.GetComponent<Renderer>().material.color == Color.red)))
+        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative") ||
+            (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+            || (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
+            )
         {
             for (int i = 0; i < magnetizedObjects.Count; i++)
             {

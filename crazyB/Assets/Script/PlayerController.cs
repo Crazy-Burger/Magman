@@ -74,6 +74,14 @@ public class PlayerController : MonoBehaviour
 
     private float selfMagneticScale = 0.0f;
 
+    // Player States
+    public enum PlayerStates
+    {
+        Normal,
+        Postitive,
+        Negative,
+    }
+    public PlayerStates playerState;
 
     private void Awake()
     {
@@ -93,7 +101,7 @@ public class PlayerController : MonoBehaviour
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
-
+        playerState = PlayerStates.Normal;
     }
 
     // Update is called once per frame
@@ -115,6 +123,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
         }
 
         if (Input.GetKeyDown("e") && withMagnetNegative)
@@ -126,6 +135,7 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.black;
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
         }
 
 
@@ -278,12 +288,14 @@ public class PlayerController : MonoBehaviour
                 withMagnetPositive = true;
                 Destroy(collision.gameObject);
                 gameObject.GetComponent<Renderer>().material.color = Color.red;
+                playerState = PlayerStates.Postitive;
             }
             if (collision.gameObject.CompareTag("NegativeMagnet"))
             {
                 withMagnetNegative = true;
                 Destroy(collision.gameObject);
                 gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                playerState = PlayerStates.Negative;
             }
         }
 
