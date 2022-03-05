@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public float MagFieldRaidus = 5.0f;
 
+    public float MagneticMoveForce = 20.0f;
 
 
     //zero gravity area variable
@@ -513,7 +514,7 @@ public class PlayerController : MonoBehaviour
                     float distance = Vector2.Distance(transform.position, hit.point);
                     if (distance <= MagFieldRaidus)
                     {
-                        hit.collider.attachedRigidbody.AddForce(-direction.normalized * Mathf.Lerp(0, 20, distance));
+                        hit.collider.attachedRigidbody.AddForce(-direction.normalized * Mathf.Lerp(0, MagneticMoveForce, distance));
                     }
                 }
                 
