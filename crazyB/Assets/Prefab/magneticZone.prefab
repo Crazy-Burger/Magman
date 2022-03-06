@@ -122,4 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee08d56b072cb6b49a4ffa2487a643d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 0
+  magneticMoveForce: 6
