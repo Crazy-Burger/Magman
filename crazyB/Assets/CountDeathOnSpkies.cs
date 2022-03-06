@@ -11,12 +11,12 @@ public class CountDeathOnSpkies : MonoBehaviour
         if (collision.collider.tag == "Player")
         {
             // Compute current level
-            int level = 1;
-            if (SceneManager.GetActiveScene().buildIndex == 2)
+            int level = 1; //SceneManager.GetActiveScene().buildIndex = 1
+            if (SceneManager.GetActiveScene().buildIndex == 3)
             {
                 level = 2;
             }
-            else if (SceneManager.GetActiveScene().buildIndex == 4)
+            else if (SceneManager.GetActiveScene().buildIndex == 5)
             {
                 level = 3;
             }
