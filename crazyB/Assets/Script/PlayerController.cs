@@ -40,7 +40,10 @@ public class PlayerController : MonoBehaviour
     public float rotForce = 0f;
     //zero gravity area variable end
 
-
+    //show hint
+    public bool showHint = false;
+    [SerializeField] private GameObject floatingTextPrefeb;
+    // hint
     public bool inMagneticZone = false;
 
 
@@ -259,6 +262,27 @@ public class PlayerController : MonoBehaviour
             MagneticZone zone = gb.GetComponent<MagneticZone>();
             selfMagneticScale = zone.magneticMoveForce;
         }
+        if (col.gameObject.tag == "Hint")
+        {
+            showHint = true;
+            Debug.Log("Hint");
+            Vector3 positionhint = transform.position;
+            positionhint.y += 3;
+            GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press E or Q  :)";
+
+        }
+
+        if (col.gameObject.tag == "Hint2")
+        {
+            showHint = true;
+            Debug.Log("Hint2");
+            Vector3 positionhint = transform.position;
+            positionhint.y += 2;
+            GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().text = "I am flappy magnet bird  :)";
+
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
@@ -272,6 +296,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Exit magnetic zone");
             inMagneticZone = false;
             selfMagneticScale = 0.0f;
+        }
+        if (col.gameObject.tag == "Hint")
+        {
+            showHint = false;
         }
     }
 
