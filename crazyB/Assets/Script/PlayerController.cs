@@ -280,7 +280,7 @@ public class PlayerController : MonoBehaviour
             Vector3 positionhint = transform.position;
             positionhint.y += 2;
             GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().text = "I am flappy magnet bird  :)";
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press ; ";
 
         }
     }
