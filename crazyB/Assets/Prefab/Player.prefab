@@ -85,7 +85,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e7a78e6a9a55c19488614c212dfc0749, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,8 +106,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -698430232215783580, guid: e3f4e1a1ccac3084b8d26486b7d866a4, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: a741dd8bbd08b404b8022137a512290c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -133,7 +133,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a48cf842ce2939446960a301e0c2946c, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -197,11 +197,15 @@ MonoBehaviour:
   zeroGravLinearDrag: 1
   zeroGravAngularDrag: 0.5
   rotForce: 0
+  showHint: 0
+  floatingTextPrefeb: {fileID: 0}
+  inMagneticZone: 0
   whatisGround:
     serializedVersion: 2
     m_Bits: 64
   magnetPositivePrefab: {fileID: 6833390005018339368, guid: 785601fbfbabf408cb912b22087cb5b2, type: 3}
   magnetNegativePrefab: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
+  playerState: 0
 --- !u!114 &1779537592
 MonoBehaviour:
   m_ObjectHideFlags: 0
