@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckJump();
         MouseClick();
-        applyMagneticZoneForceUp();
+        
         //UpdateAnimation();
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
@@ -181,6 +181,7 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
 
         applyMagneticZoneToBody();
+        applyMagneticZoneForceUp();
 
     }
 
@@ -579,9 +580,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("h: " + h + ", v: " + v);
             rb.AddForce(new Vector2(0, v));
         }
-        else {
-            rb.gravityScale = origGravityScale;
-        }
+        //else {
+        //    rb.gravityScale = origGravityScale;
+        //}
     }
 
     private void applyMagneticZoneToBody(){
