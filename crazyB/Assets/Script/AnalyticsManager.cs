@@ -151,34 +151,66 @@ public class AnalyticsManager : MonoBehaviour
         if (checkpointPosition == checkpoints[0]) 
         {
             checkpointTimeSpent["checkpoint1"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint1 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[1])
         {
             checkpointTimeSpent["checkpoint2"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint2 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[2])
         {
             checkpointTimeSpent["checkpoint3"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint3 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[3])
         {
             checkpointTimeSpent["checkpoint4"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint4 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[4])
         {
             checkpointTimeSpent["checkpoint5"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint5 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[5])
         {
             checkpointTimeSpent["checkpoint6"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint6 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[6])
         {
             checkpointTimeSpent["checkpoint7"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint7 time spent: " + time);
+            }
         }
         else if (checkpointPosition == checkpoints[7])
         {
             checkpointTimeSpent["checkpoint8"] = time;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint8 time spent: " + time);
+            }
         }
         else
         {

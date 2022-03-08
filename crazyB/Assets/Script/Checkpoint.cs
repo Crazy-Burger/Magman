@@ -18,7 +18,7 @@ public class Checkpoint : MonoBehaviour
             TimeManager.instance.EndTimer();
             AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
             TimeManager.instance.BeginTimer();
-
+            Debug.LogWarning("checkpoint: " + GameMaster.instance.lastCheckPointPos.ToString());
             gm.lastCheckPointPos = transform.position;
             activeCP = true;
         }
