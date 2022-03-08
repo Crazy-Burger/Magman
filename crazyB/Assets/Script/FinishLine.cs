@@ -19,6 +19,16 @@ public class FinishLine : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            /* 
+             * record time spent on the last checkpoint before finishline and upload analytics data
+             */
+            TimeManager.instance.EndTimer();
+            AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
+            AnalyticsManager.instance.UploadAnalyticsData();
+            Debug.LogWarning("checkpoint: " + GameMaster.instance.lastCheckPointPos.ToString());
+
+            //restart timer for next level (for time between end of this level and the first checkpoint of next level)
+            TimeManager.instance.BeginTimer();
 
             //CompeleteLevel();
             gm.lastCheckPointPos.x = -9;
@@ -28,12 +38,6 @@ public class FinishLine : MonoBehaviour
             //Restart();
             //Invoke("Restart", restartDelay);
 
-            /* 
-             * record time spent on the last checkpoint before finishline and upload analytics data
-             */
-            TimeManager.instance.EndTimer();
-            AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
-            AnalyticsManager.instance.UploadAnalyticsData();
             int currentLevel = 1;
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
