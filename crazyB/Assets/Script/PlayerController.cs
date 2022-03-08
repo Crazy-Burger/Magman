@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour
             }
             withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
 
         if (Input.GetKeyDown("q") && withMagnetNegative)
@@ -172,6 +173,7 @@ public class PlayerController : MonoBehaviour
             }
             withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
     }
 
