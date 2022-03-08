@@ -14,20 +14,20 @@ public class NegativeBlock : MonoBehaviour
         this.Player = GameObject.FindWithTag("Player");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         
         float distance = Vector2.Distance(transform.position, Player.transform.position);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 10, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 100, distance)));
         }
 
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.blue)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 10, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 100, distance)));
         }
     }
     private void OnDrawGizmos()
