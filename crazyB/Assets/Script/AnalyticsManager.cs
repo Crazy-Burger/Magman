@@ -10,7 +10,7 @@ public class AnalyticsManager : MonoBehaviour
     public Dictionary<string, object> checkpointTimeSpent;
     public Dictionary<string, int> checkpointJumps;
     public Dictionary<string, int> ekeyUsageTimes;
-    public Vector2[] checkpoints = { new Vector2(-9.0f, -1.7f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f) };
+    public Vector2[] checkpoints = { new Vector2(-9.0f, -1.7f), new Vector2(8.1f, -1.5f), new Vector2(20.7f, -1.4f), new Vector2(14.3f, -1.69f) , new Vector2(56.62f, -1.25f), new Vector2(-6.74f, -10.32f), new Vector2(30.59f, -22.49f), };
     private void Awake()
     {
         //if it is the first time creating the singleton, create it and prevent it from being destroyed while switching/loading scenes.

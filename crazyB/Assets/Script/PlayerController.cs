@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
             Vector3 positionhint = transform.position;
             positionhint.y += 2;
             GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press ; ";
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press J ";
 
         }
     }
@@ -569,7 +569,7 @@ public class PlayerController : MonoBehaviour
     //}
 
     private void applyMagneticZoneForceUp(){
-        if (Input.GetKey(";")) {
+        if (Input.GetKey("j")) {
             Debug.Log("press on Apply Magnetic");
             Debug.Log("is in magnetic zone: " + inMagneticZone);
             float magneticForce = inMagneticZone ? selfMagneticScale : 0.0f;
