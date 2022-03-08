@@ -34,6 +34,9 @@ public class FinishLine : MonoBehaviour
             TimeManager.instance.EndTimer();
             AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
             AnalyticsManager.instance.UploadAnalyticsData();
+            
+            //restart timer for next level (for time between end of this level and the first checkpoint of next level)
+            TimeManager.instance.BeginTimer();
             int currentLevel = 1;
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {

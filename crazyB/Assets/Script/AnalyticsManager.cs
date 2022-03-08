@@ -12,6 +12,8 @@ public class AnalyticsManager : MonoBehaviour
     public Dictionary<string, int> ekeyUsageTimes;
 
     public Vector2[] checkpoints = { new Vector2(-9f, -1.5f), new Vector2(23.1f, -1.2f), new Vector2(66.3f, -1.2f), new Vector2(-9f, -1.7f), new Vector2(14.3f, -1.69f), new Vector2(56.62f, -1.25f), new Vector2(-6.74f, -10.32f), new Vector2(30.59f, -22.49f) };
+
+    private bool debug = false;
     private void Awake()
     {
         //if it is the first time creating the singleton, create it and prevent it from being destroyed while switching/loading scenes.
@@ -35,14 +37,14 @@ public class AnalyticsManager : MonoBehaviour
             };
             checkpointTimeSpent = new Dictionary<string, object>()
             {
-                {"checkpoint1", 0 },
-                {"checkpoint2", 0 },
-                {"checkpoint3", 0 },
-                {"checkpoint4", 0 },
-                {"checkpoint5", 0 },
-                {"checkpoint6", 0 },
-                {"checkpoint7", 0 },
-                {"checkpoint8", 0 }
+                {"checkpoint1", "0:00" },
+                {"checkpoint2", "0:00" },
+                {"checkpoint3", "0:00" },
+                {"checkpoint4", "0:00" },
+                {"checkpoint5", "0:00" },
+                {"checkpoint6", "0:00" },
+                {"checkpoint7", "0:00" },
+                {"checkpoint8", "0:00" }
             };
             checkpointJumps = new Dictionary<string, int>()
             {
@@ -74,37 +76,69 @@ public class AnalyticsManager : MonoBehaviour
     }
     public void IncrementCheckpointDeaths(Vector2 checkpointPosition)
     {
-        if (checkpointPosition == checkpoints[0]) // checkpoint1
+        if (checkpointPosition == checkpoints[0]) 
         {
             checkpointDeaths["checkpoint1"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint1 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[1])// checkpoint2
+        else if (checkpointPosition == checkpoints[1])
         {
             checkpointDeaths["checkpoint2"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint2 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[2])//checkpoint3
+        else if (checkpointPosition == checkpoints[2])
         {
             checkpointDeaths["checkpoint3"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint3 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[3])//checkpoint3
+        else if (checkpointPosition == checkpoints[3])
         {
             checkpointDeaths["checkpoint4"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint4 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[4])//checkpoint3
+        else if (checkpointPosition == checkpoints[4])
         {
             checkpointDeaths["checkpoint5"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint5 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[5])//checkpoint3
+        else if (checkpointPosition == checkpoints[5])
         {
             checkpointDeaths["checkpoint6"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint6 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[6])//checkpoint3
+        else if (checkpointPosition == checkpoints[6])
         {
             checkpointDeaths["checkpoint7"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint7 deaths + 1");
+            }
         }
-        else if (checkpointPosition == checkpoints[7])//checkpoint3
+        else if (checkpointPosition == checkpoints[7])
         {
             checkpointDeaths["checkpoint8"] += 1;
+            if (debug)
+            {
+                Debug.LogWarning("checkpoint8 deaths + 1");
+            }
         }
         else
         {
@@ -114,35 +148,35 @@ public class AnalyticsManager : MonoBehaviour
     }
     public void RecordCheckpointTimeSpent(Vector2 checkpointPosition, string time)
     {
-        if (checkpointPosition == checkpoints[0]) // checkpoint1
+        if (checkpointPosition == checkpoints[0]) 
         {
             checkpointTimeSpent["checkpoint1"] = time;
         }
-        else if (checkpointPosition == checkpoints[1])// checkpoint2
+        else if (checkpointPosition == checkpoints[1])
         {
             checkpointTimeSpent["checkpoint2"] = time;
         }
-        else if (checkpointPosition == checkpoints[2])//checkpoint3
+        else if (checkpointPosition == checkpoints[2])
         {
             checkpointTimeSpent["checkpoint3"] = time;
         }
-        else if (checkpointPosition == checkpoints[3])// checkpoint2
+        else if (checkpointPosition == checkpoints[3])
         {
             checkpointTimeSpent["checkpoint4"] = time;
         }
-        else if (checkpointPosition == checkpoints[4])//checkpoint3
+        else if (checkpointPosition == checkpoints[4])
         {
             checkpointTimeSpent["checkpoint5"] = time;
         }
-        else if (checkpointPosition == checkpoints[5])// checkpoint2
+        else if (checkpointPosition == checkpoints[5])
         {
             checkpointTimeSpent["checkpoint6"] = time;
         }
-        else if (checkpointPosition == checkpoints[6])//checkpoint3
+        else if (checkpointPosition == checkpoints[6])
         {
             checkpointTimeSpent["checkpoint7"] = time;
         }
-        else if (checkpointPosition == checkpoints[7])//checkpoint3
+        else if (checkpointPosition == checkpoints[7])
         {
             checkpointTimeSpent["checkpoint8"] = time;
         }
@@ -157,35 +191,35 @@ public class AnalyticsManager : MonoBehaviour
     {
         Debug.Log(checkpointPosition);
 
-        if (checkpointPosition == checkpoints[0]) // checkpoint1
+        if (checkpointPosition == checkpoints[0]) 
         {
             checkpointJumps["checkpoint1"] += 1;
         }
-        else if (checkpointPosition == checkpoints[1])// checkpoint2
+        else if (checkpointPosition == checkpoints[1])
         {
             checkpointJumps["checkpoint2"] += 1;
         }
-        else if (checkpointPosition == checkpoints[2])//checkpoint3
+        else if (checkpointPosition == checkpoints[2])
         {
             checkpointJumps["checkpoint3"] += 1;
         }
-        else if (checkpointPosition == checkpoints[3])// checkpoint2
+        else if (checkpointPosition == checkpoints[3])
         {
             checkpointJumps["checkpoint4"] += 1;
         }
-        else if (checkpointPosition == checkpoints[4])//checkpoint3
+        else if (checkpointPosition == checkpoints[4])
         {
             checkpointJumps["checkpoint5"] += 1;
         }
-        else if (checkpointPosition == checkpoints[5])// checkpoint2
+        else if (checkpointPosition == checkpoints[5])
         {
             checkpointJumps["checkpoint6"] += 1;
         }
-        else if (checkpointPosition == checkpoints[6])//checkpoint3
+        else if (checkpointPosition == checkpoints[6])
         {
             checkpointJumps["checkpoint7"] += 1;
         }
-        else if (checkpointPosition == checkpoints[7])//checkpoint3
+        else if (checkpointPosition == checkpoints[7])
         {
             checkpointJumps["checkpoint8"] += 1;
         }
@@ -270,7 +304,7 @@ public class AnalyticsManager : MonoBehaviour
                     {"checkpoint8", checkpointJumps["checkpoint8"] }
                 }
             );
-        Debug.Log("check out jumps: " + result);
+        Debug.Log("checkpoint jumps: " + result);
         result = Analytics.CustomEvent(
                "Ekey Usage Times",
                new Dictionary<string, object>
