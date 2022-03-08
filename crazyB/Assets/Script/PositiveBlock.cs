@@ -21,13 +21,13 @@ public class PositiveBlock : MonoBehaviour
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 70, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 100, distance)));
         }
 
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.blue)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 70, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 100, distance)));
         }
 
     }
