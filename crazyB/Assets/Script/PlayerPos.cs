@@ -8,6 +8,7 @@ public class PlayerPos : MonoBehaviour
 {
     private GameMaster gm;
     // Start is called before the first frame update
+    public Rigidbody2D rb;
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -20,6 +21,22 @@ public class PlayerPos : MonoBehaviour
         // press 0 to destroy player
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if(rb.position.y < -50f)
+        {
+            // Compute current level
+            int level = 1;//SceneManager.GetActiveScene().buildIndex = 1
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                level = 2;
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 5)
+            {
+                level = 3;
+            }
+            AnalyticsResult dieOnFalling = Analytics.CustomEvent("DieOnFalling" + level);
+            Debug.Log("analyticsResultDieOnFalling: " + dieOnFalling);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

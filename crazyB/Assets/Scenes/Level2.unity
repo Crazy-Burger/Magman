@@ -128,6 +128,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6275815712460294434, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
   m_PrefabInstance: {fileID: 480681294}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &20441269 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 6275815712460294432, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
+  m_PrefabInstance: {fileID: 480681294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &20441271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4945,6 +4950,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1779537592, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 20441269}
     - target: {fileID: 6275815711742530588, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
       propertyPath: m_Layer
       value: 6
