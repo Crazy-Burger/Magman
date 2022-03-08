@@ -9177,9 +9177,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpoints:
+  - {x: -9, y: -1.5}
+  - {x: 23.1, y: -1.2}
+  - {x: 66.3, y: -1.2}
   - {x: -9, y: -1.7}
-  - {x: 8.1, y: -1.5}
-  - {x: 20.7, y: -1.4}
+  - {x: 14.3, y: -1.69}
+  - {x: 56.62, y: -1.25}
+  - {x: -6.74, y: -10.32}
+  - {x: 30.59, y: -22.49}
 --- !u!4 &1181363978
 Transform:
   m_ObjectHideFlags: 0
