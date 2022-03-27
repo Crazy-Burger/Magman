@@ -176,7 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b568fd37b66b3499e3efc6a6daeef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData: {fileID: 0}
+  PlayerData: {fileID: 11400000, guid: be620ace5923fd848ba72bbdad96d50b, type: 2}
   Player: {fileID: 0}
   positiveObjectList: []
   negativeObjectList: []
+  mycollider: {fileID: 0}

@@ -10,6 +10,7 @@ public class NegativeBlock : MonoBehaviour
 
     public GameObject[] positiveObjectList;
     public GameObject[] negativeObjectList;
+    public BoxCollider2D mycollider;
 
     private void Start()
     {
@@ -17,14 +18,17 @@ public class NegativeBlock : MonoBehaviour
         this.Player = GameObject.FindWithTag("Player");
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
+        this.mycollider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
     {
+        Debug.Log(this.mycollider.size);
         // check distance between player and the static object
         float distance = this.calculateDist(this.Player);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
         {
+            Debug.Log(this.mycollider.size);
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 100, distance)));
         }
