@@ -8,16 +8,21 @@ public class NegativeBlock : MonoBehaviour
     public GameData PlayerData;
     public GameObject Player;
 
+    public GameObject[] positiveObjectList;
+    public GameObject[] negativeObjectList;
+
     private void Start()
     {
         MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
         this.Player = GameObject.FindWithTag("Player");
+        this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
+        this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
     }
 
     private void FixedUpdate()
     {
-        
-        float distance = Vector2.Distance(transform.position, Player.transform.position);
+        // check distance between player and the static object
+        float distance = this.calculateDist(this.Player);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
         {
             Vector2 direction = Player.transform.position - transform.position;
@@ -29,9 +34,32 @@ public class NegativeBlock : MonoBehaviour
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 100, distance)));
         }
+        // check distance between positive dynamic objects and the static object
+        for(int i=0; i < this.positiveObjectList.Length; i++){
+            distance = this.calculateDist(this.positiveObjectList[i]);
+            if (distance < MagFieldRaidus)
+            {
+                Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
+                this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, 100, distance)));
+            }
+        }
+        // check distance between negative dynamic objects and the static object
+        for(int i=0; i < this.negativeObjectList.Length; i++){
+            distance = this.calculateDist(this.negativeObjectList[i]);
+            if (distance < MagFieldRaidus)
+            {
+                Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
+                this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, 100, distance)));
+            }
+        }
+        
     }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, MagFieldRaidus);
+    }
+
+    private float calculateDist(GameObject ob){
+        return Vector2.Distance(transform.position, ob.transform.position);
     }
 }
