@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
         
         applyMagneticZoneToBody();
-        Debug.Log(rb.velocity.y);
+        
     }
 
 
@@ -240,7 +240,7 @@ private void CheckInput()
         if (checkJumpMiultiplier && !Input.GetButton("Jump"))
         {
             checkJumpMiultiplier = false;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
+            //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
             
         }
 
