@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6275815711742530589}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6275815712460294435}
   - component: {fileID: 6275815712460294463}
   - component: {fileID: 1779537592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -183,8 +183,8 @@ MonoBehaviour:
   PlayerSpeed: 10
   jumpForce: 16
   jumpTimerSet: 0.15
-  varibleJumpHeightMultiplier: 0.2
-  amountOfJumps: 2
+  varibleJumpHeightMultiplier: 1
+  amountOfJumps: 1
   turnTimerSet: 0.1
   facingDirection: 1
   MagFieldRaidus: 5
@@ -202,7 +202,7 @@ MonoBehaviour:
   inMagneticZone: 0
   whatisGround:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1
   magnetPositivePrefab: {fileID: 6833390005018339368, guid: 785601fbfbabf408cb912b22087cb5b2, type: 3}
   magnetNegativePrefab: {fileID: 77735171755417591, guid: 7b96faa21105a4461be46d9d74784f5d, type: 3}
   playerState: 0

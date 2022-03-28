@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     private float turnTimer;
 
 
+    private bool AirVelocityEqalZero;
 
     private Animator anim;
 
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
         origGravityScale = rb.gravityScale;
-
+        AirVelocityEqalZero = false;
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -116,7 +117,8 @@ public class PlayerController : MonoBehaviour
         CheckJump();
         MouseClick();
         applyMagneticZoneForceUp();
-        //UpdateAnimation();
+        UpdateAnimation();
+        
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
             
@@ -179,23 +181,23 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-
+        
         applyMagneticZoneToBody();
-
+        Debug.Log(rb.velocity.y);
     }
 
 
 
-    //private void UpdateAnimation()
-    //{
-    //    anim.SetBool("isWalking", isWalking);
-    //    anim.SetBool("isGrounded", isGrounded);
-    //    anim.SetFloat("yVelocity", rb.velocity.y);
-    //    anim.SetBool("isWallSlide", isWallSliding);
-    //    anim.SetInteger("playermovement", (int)PlayerMovingState);
-    //}
+    private void UpdateAnimation()
+    {
+        anim.SetBool("isWalking", isWalking);
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("yVelocity", rb.velocity.y);
+        
+        
+}
 
-    private void CheckInput()
+private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
@@ -589,5 +591,7 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+
+    
 
 }
