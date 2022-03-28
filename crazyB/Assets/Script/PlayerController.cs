@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     // hint
     public bool inMagneticZone = false;
 
+    [SerializeField]
+    private float PlayerMaxSpeed;
 
     private int amountOfJumpsLeft;
     private float movementInputDirection;
@@ -181,7 +183,7 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-        
+        CheckMovment();
         applyMagneticZoneToBody();
         
     }
@@ -241,7 +243,6 @@ private void CheckInput()
         {
             checkJumpMiultiplier = false;
             //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
-            
         }
 
         moveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
@@ -336,14 +337,18 @@ private void CheckInput()
     {
         if (!inZeroGravityZone)
         {
-            if (!isGrounded && movementInputDirection == 0)
+            if (isGrounded && movementInputDirection == 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x * varibleJumpHeightMultiplier, rb.velocity.y);
             }
             else if (canMove)
             {
-                rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+                //rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+                rb.AddForce(PlayerSpeed * Vector2.right * movementInputDirection, ForceMode2D.Force);
             }
+           
+
+
         }
         else
         {
@@ -419,7 +424,8 @@ private void CheckInput()
     {
         if (canNormalJump)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
             amountOfJumpsLeft--;
             jumpTimer = 0;
             isAttemptingToJump = false;
@@ -592,6 +598,12 @@ private void CheckInput()
         }
     }
 
-    
+    private void CheckMovment()
+    {
+        if (Mathf.Abs(rb.velocity.x) >= PlayerMaxSpeed)
+        {
+            rb.velocity = new Vector2(PlayerMaxSpeed*facingDirection, rb.velocity.y);
+        }
+    }
 
 }
