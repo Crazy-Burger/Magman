@@ -337,9 +337,9 @@ private void CheckInput()
     {
         if (!inZeroGravityZone)
         {
-            if (isGrounded && movementInputDirection == 0)
+            if (movementInputDirection == 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x * varibleJumpHeightMultiplier, rb.velocity.y);
+                rb.velocity = new Vector2(rb.velocity.x * 0.8f, rb.velocity.y);
             }
             else if (canMove)
             {
@@ -425,7 +425,8 @@ private void CheckInput()
         if (canNormalJump)
         {
             //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
             amountOfJumpsLeft--;
             jumpTimer = 0;
             isAttemptingToJump = false;
