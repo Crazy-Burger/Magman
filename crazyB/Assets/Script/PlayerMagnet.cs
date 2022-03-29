@@ -4,100 +4,71 @@ using UnityEngine;
 
 public class PlayerMagnet : MonoBehaviour
 {
+    private float MagFieldRaidus;
+    private float MaxMegnetForce;
+    public GameData PlayerData;
     public float range = 5.0f;
     public float strength = 10.0f;
-    List<MagnetizedObject> magnetizedObjects;
+
+    public GameObject[] positiveObjectList;
+    public GameObject[] negativeObjectList;
 
     // Start is called before the first frame update
     void Start()
     {
-        magnetizedObjects = new List<MagnetizedObject>();
-        gameObject.GetComponent<CircleCollider2D>().radius = range;
+        MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
+        
+        this.MaxMegnetForce = PlayerData.MaxForce;
+        this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
+        this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
     }
 
     // Update is called once per frame
     public void FixedUpdate()
     {
-        foreach (MagnetizedObject v in magnetizedObjects)
-        {
-            ApplyMagneticForce(v);
-        }
-    }
-
-    void ApplyMagneticForce(MagnetizedObject magnetizedObject)
-    {
-        Vector2 vector2 = transform.position - magnetizedObject.transform.position;
-        float distance = vector2.magnitude;
-        float distanceScale = Mathf.InverseLerp(range, 0f, distance);
-        float attractionStrength = Mathf.Lerp(0f, strength, distanceScale);
-        magnetizedObject.rb.AddForce(vector2.normalized * attractionStrength * magnetizedObject.magneticPole, ForceMode2D.Force);
-    }
-    public void OnTriggerEnter2D(Collider2D collider)
-    {
-        // If player is positive
-        if (GameObject.Find("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
-        {
-
-            // player attract negative
-            if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron")
-            {
-                MagnetizedObject newMag = new MagnetizedObject();
-                newMag.collider = collider;
-                newMag.rb = collider.GetComponent<Rigidbody2D>();
-                newMag.transform = collider.transform;
-                newMag.magneticPole = 1;
-                magnetizedObjects.Add(newMag);
-                print(newMag.GetType());
-            }
-            // player repel negative
-            else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive")
-            {
-                MagnetizedObject newMag = new MagnetizedObject();
-                newMag.collider = collider;
-                newMag.rb = collider.GetComponent<Rigidbody2D>();
-                newMag.transform = collider.transform;
-                newMag.magneticPole = -1;
-                magnetizedObjects.Add(newMag);
-            }
-        }
-
-        if (GameObject.Find("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
-        {
-            // player attract negative
-            if (collider.gameObject.tag == "NegativeMagnet" || collider.gameObject.tag == "Negative" || collider.gameObject.tag == "Iron")
-            {
-                MagnetizedObject newMag = new MagnetizedObject();
-                newMag.collider = collider;
-                newMag.rb = collider.GetComponent<Rigidbody2D>();
-                newMag.transform = collider.transform;
-                newMag.magneticPole = -1;
-                magnetizedObjects.Add(newMag);
-            }
-            // player repel negative
-            else if (collider.gameObject.tag == "PositiveMagnet" || collider.gameObject.tag == "Positive")
-            {
-                MagnetizedObject newMag = new MagnetizedObject();
-                newMag.collider = collider;
-                newMag.rb = collider.GetComponent<Rigidbody2D>();
-                newMag.transform = collider.transform;
-                newMag.magneticPole = 1;
-                magnetizedObjects.Add(newMag);
-            }
-        }
-
-    }
-    public void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.CompareTag("PositiveMagnet") || collider.CompareTag("NegativeMagnet") || collider.CompareTag("Iron") || collider.CompareTag("Positive") || collider.CompareTag("Negative"))
-        {
-            for (int i = 0; i < magnetizedObjects.Count; i++)
-            {
-                if (magnetizedObjects[i].collider == collider)
+        float distance;
+        bool isNormal = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Normal;
+        if(!isNormal){
+            bool isPositive = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive;
+            int direct = isPositive? 1 : -1;
+            for(int i=0; i < this.positiveObjectList.Length; i++){
+                Debug.Log(this.positiveObjectList[i]);
+                distance = this.distToSphere(this.positiveObjectList[i]);
+                Debug.Log(distance);
+                if (distance < MagFieldRaidus)
                 {
-                    magnetizedObjects.RemoveAt(i);
-                    break;
+                    Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
+                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                }
+            }
+            // check distance between negative dynamic objects and the static object
+            for(int i=0; i < this.negativeObjectList.Length; i++){
+                Debug.Log(this.negativeObjectList[i]);
+                distance = this.distToSphere(this.negativeObjectList[i]);
+                Debug.Log(distance);
+                if (distance < MagFieldRaidus)
+                {
+                    Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
+                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * direct * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
                 }
             }
         }
+
+    }
+    private float distToSphere(GameObject ob){
+        float width = transform.localScale[0];
+        float height = transform.localScale[1];
+        float posX = transform.position[0];
+        float posY = transform.position[1];
+        float minX = posX - width/2;
+        float maxX = posX + width/2;
+        float minY = posY - height/2;
+        float maxY = posY + height/2;
+        float dx = Mathf.Max(minX - ob.transform.position[0], 0);
+        dx = Mathf.Max(dx, ob.transform.position[0] - maxX);
+        float dy = Mathf.Max(minY - ob.transform.position[1], 0);
+        dy = Mathf.Max(dy, ob.transform.position[1] - maxY);
+        
+        return Mathf.Sqrt(dx * dx + dy * dy);
     }
 }
