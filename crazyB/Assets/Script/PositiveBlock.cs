@@ -22,6 +22,8 @@ public class PositiveBlock : MonoBehaviour
 
     private void FixedUpdate()
     {
+        this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
+        this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
         
         float distance = this.distToSphere(this.Player);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
@@ -78,8 +80,6 @@ public class PositiveBlock : MonoBehaviour
         float dy = Mathf.Max(minY - ob.transform.position[1], 0);
         dy = Mathf.Max(dy, ob.transform.position[1] - maxY);
         
-        Debug.Log(dx);
-        Debug.Log(dy);
         return Mathf.Sqrt(dx * dx + dy * dy);
     }
 }

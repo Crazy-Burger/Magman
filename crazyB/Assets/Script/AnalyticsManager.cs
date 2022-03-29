@@ -221,7 +221,7 @@ public class AnalyticsManager : MonoBehaviour
 
     public void IncrementCheckpointJumps(Vector2 checkpointPosition)
     {
-        Debug.Log(checkpointPosition);
+        //Debug.Log(checkpointPosition);
 
         if (checkpointPosition == checkpoints[0]) 
         {

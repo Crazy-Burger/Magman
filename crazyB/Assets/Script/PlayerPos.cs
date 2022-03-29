@@ -50,16 +50,16 @@ public class PlayerPos : MonoBehaviour
                 var result = Analytics.CustomEvent(
                     "Death_Reason_Obstacle_Moving"
                 );
-                Debug.Log("moving obstacle");
-                Debug.Log(result);
+                // Debug.Log("moving obstacle");
+                // Debug.Log(result);
             }
             else
             {
                 var result = Analytics.CustomEvent(
                    "Death_Reason_Obstacle_static"
                 );
-                Debug.Log("static obstacle");
-                Debug.Log(result);
+                // Debug.Log("static obstacle");
+                // Debug.Log(result);
             }
             //record player death in analytics
             AnalyticsManager.instance.IncrementCheckpointDeaths(GameMaster.instance.lastCheckPointPos);
@@ -67,7 +67,7 @@ public class PlayerPos : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
-        Debug.Log(collision.collider.name);
+        // Debug.Log(collision.collider.name);
     }
 
 }

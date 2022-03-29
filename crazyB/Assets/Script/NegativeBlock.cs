@@ -26,6 +26,8 @@ public class NegativeBlock : MonoBehaviour
 
     private void FixedUpdate()
     {
+        this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
+        this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
         // check distance between player and the static object
         // float distance = this.calculateDist(this.Player);
         float distance = this.distToSphere(this.Player);

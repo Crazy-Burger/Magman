@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 834677756602617565}
   - component: {fileID: 2622957050767399462}
   - component: {fileID: 5321868809458786940}
-  - component: {fileID: 5269191890514269428}
-  - component: {fileID: 8514454853958447471}
   - component: {fileID: 6853219101206534115}
   m_Layer: 0
   m_Name: Negative
@@ -134,36 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!58 &5269191890514269428
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77735171755417591}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3
---- !u!114 &8514454853958447471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77735171755417591}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15aafb1d3f84e40508b2cff4ad9a4d1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 3
-  strength: 5
 --- !u!114 &6853219101206534115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,4 +148,3 @@ MonoBehaviour:
   Player: {fileID: 0}
   positiveObjectList: []
   negativeObjectList: []
-  mycollider: {fileID: 0}

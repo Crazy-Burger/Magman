@@ -26,30 +26,28 @@ public class PlayerMagnet : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate()
     {
+        this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
+        this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
         float distance;
         bool isNormal = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Normal;
         if(!isNormal){
             bool isPositive = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive;
             int direct = isPositive? 1 : -1;
             for(int i=0; i < this.positiveObjectList.Length; i++){
-                Debug.Log(this.positiveObjectList[i]);
                 distance = this.distToSphere(this.positiveObjectList[i]);
-                Debug.Log(distance);
                 if (distance < MagFieldRaidus)
                 {
                     Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
-                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
                 }
             }
             // check distance between negative dynamic objects and the static object
             for(int i=0; i < this.negativeObjectList.Length; i++){
-                Debug.Log(this.negativeObjectList[i]);
                 distance = this.distToSphere(this.negativeObjectList[i]);
-                Debug.Log(distance);
                 if (distance < MagFieldRaidus)
                 {
                     Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
-                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * direct * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
                 }
             }
         }
