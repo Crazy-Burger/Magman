@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform groundCheck;
+    public GameObject Redmag;
+    public GameObject Bluemag;
     public GameData gameData;
 
     public float groundCheckRadius;
@@ -127,7 +129,9 @@ public class PlayerController : MonoBehaviour
             GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetPositive = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
@@ -139,7 +143,9 @@ public class PlayerController : MonoBehaviour
             GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetNegative = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
@@ -195,7 +201,8 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isWalking", isWalking);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.velocity.y);
-        
+        anim.SetBool("withMagnetPositive", withMagnetPositive);
+        anim.SetBool("withMagnetNegative", withMagnetNegative);
         
 }
 
@@ -318,15 +325,20 @@ private void CheckInput()
             {
                 withMagnetPositive = true;
                 Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                //gameObject.GetComponent<Renderer>().material.color = Color.red;
+                
                 playerState = PlayerStates.Postitive;
+                Redmag.SetActive(true);
+                Bluemag.SetActive(false);
             }
             if (collision.gameObject.CompareTag("NegativeMagnet"))
             {
                 withMagnetNegative = true;
                 Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                //gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 playerState = PlayerStates.Negative;
+                Redmag.SetActive(false);
+                Bluemag.SetActive(true);
             }
         }
 
