@@ -265,6 +265,17 @@ public class PlayerController : MonoBehaviour
             MagneticZone zone = gb.GetComponent<MagneticZone>();
             selfMagneticScale = zone.magneticMoveForce;
         }
+        if (col.gameObject.tag == "Hint0")
+        {
+            showHint = true;
+            Debug.Log("Hint0");
+            Vector3 positionhint = transform.position;
+            positionhint.y += 3;
+            GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to do a double jump  :)";
+
+        }
+
         if (col.gameObject.tag == "Hint")
         {
             showHint = true;
@@ -272,7 +283,7 @@ public class PlayerController : MonoBehaviour
             Vector3 positionhint = transform.position;
             positionhint.y += 3;
             GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press E or Q  :)";
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press E  :)";
 
         }
 
@@ -283,7 +294,18 @@ public class PlayerController : MonoBehaviour
             Vector3 positionhint = transform.position;
             positionhint.y += 2;
             GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press J ";
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Hold J  :)";
+
+        }
+
+        if (col.gameObject.tag == "Hint3")
+        {
+            showHint = true;
+            Debug.Log("Hint3");
+            Vector3 positionhint = transform.position;
+            positionhint.y += 2;
+            GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
+            prefab.GetComponentInChildren<TextMesh>().text = "Oppsite magnets attract each other  :)";
 
         }
     }

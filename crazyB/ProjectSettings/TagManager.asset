@@ -19,6 +19,8 @@ TagManager:
   - MagneticZone
   - Hint
   - Hint2
+  - Hint0
+  - Hint3
   layers:
   - Default
   - TransparentFX
