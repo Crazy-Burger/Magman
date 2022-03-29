@@ -6,4 +6,5 @@ public class GameData : ScriptableObject
 {
     public float OrangeMagFieldRaidus = 1;
     public float gravity = 3f;
+    public float MaxForce = 50f;
 }
