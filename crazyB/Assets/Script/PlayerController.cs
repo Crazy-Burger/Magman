@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public Transform groundCheck;
+    public GameObject Redmag;
+    public GameObject Bluemag;
     public GameData gameData;
 
     public float groundCheckRadius;
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
     // hint
     public bool inMagneticZone = false;
 
+    [SerializeField]
+    private float PlayerMaxSpeed;
 
     private int amountOfJumpsLeft;
     private float movementInputDirection;
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private float turnTimer;
 
 
+    private bool AirVelocityEqalZero;
 
     private Animator anim;
 
@@ -100,7 +105,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
         origGravityScale = rb.gravityScale;
-
+        AirVelocityEqalZero = false;
         origLinearDrag = rb.drag;
         origAngularDrag = rb.angularDrag;
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -115,15 +120,17 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckJump();
         MouseClick();
-        
-        //UpdateAnimation();
+        applyMagneticZoneForceUp();
+        UpdateAnimation();
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
             
             GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetPositive = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
@@ -135,7 +142,9 @@ public class PlayerController : MonoBehaviour
             GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetNegative = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
             AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
             playerState = PlayerStates.Normal;
@@ -181,24 +190,23 @@ public class PlayerController : MonoBehaviour
     {
         ApplyMovement();
         CheckSurroundings();
-
+        CheckMovment();
         applyMagneticZoneToBody();
-        applyMagneticZoneForceUp();
-
     }
 
 
 
-    //private void UpdateAnimation()
-    //{
-    //    anim.SetBool("isWalking", isWalking);
-    //    anim.SetBool("isGrounded", isGrounded);
-    //    anim.SetFloat("yVelocity", rb.velocity.y);
-    //    anim.SetBool("isWallSlide", isWallSliding);
-    //    anim.SetInteger("playermovement", (int)PlayerMovingState);
-    //}
+    private void UpdateAnimation()
+    {
+        anim.SetBool("isWalking", isWalking);
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("yVelocity", rb.velocity.y);
+        anim.SetBool("withMagnetPositive", withMagnetPositive);
+        anim.SetBool("withMagnetNegative", withMagnetNegative);
+        
+}
 
-    private void CheckInput()
+private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
@@ -241,8 +249,7 @@ public class PlayerController : MonoBehaviour
         if (checkJumpMiultiplier && !Input.GetButton("Jump"))
         {
             checkJumpMiultiplier = false;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
-            
+            //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * varibleJumpHeightMultiplier);
         }
 
         moveForce = inZeroGravityZone ? zeroGravMoveForce : normalMoveForce;
@@ -318,15 +325,20 @@ public class PlayerController : MonoBehaviour
             {
                 withMagnetPositive = true;
                 Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                //gameObject.GetComponent<Renderer>().material.color = Color.red;
+                
                 playerState = PlayerStates.Postitive;
+                Redmag.SetActive(true);
+                Bluemag.SetActive(false);
             }
             if (collision.gameObject.CompareTag("NegativeMagnet"))
             {
                 withMagnetNegative = true;
                 Destroy(collision.gameObject);
-                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                //gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 playerState = PlayerStates.Negative;
+                Redmag.SetActive(false);
+                Bluemag.SetActive(true);
             }
         }
 
@@ -337,14 +349,18 @@ public class PlayerController : MonoBehaviour
     {
         if (!inZeroGravityZone)
         {
-            if (!isGrounded && movementInputDirection == 0)
+            if (movementInputDirection == 0)
             {
-                rb.velocity = new Vector2(rb.velocity.x * varibleJumpHeightMultiplier, rb.velocity.y);
+                rb.velocity = new Vector2(rb.velocity.x * 0.8f, rb.velocity.y);
             }
             else if (canMove)
             {
-                rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+                //rb.velocity = new Vector2(PlayerSpeed * movementInputDirection, rb.velocity.y);
+                rb.AddForce(PlayerSpeed * Vector2.right * movementInputDirection, ForceMode2D.Force);
             }
+           
+
+
         }
         else
         {
@@ -420,7 +436,9 @@ public class PlayerController : MonoBehaviour
     {
         if (canNormalJump)
         {
+            //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            //rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
             amountOfJumpsLeft--;
             jumpTimer = 0;
             isAttemptingToJump = false;
@@ -590,6 +608,14 @@ public class PlayerController : MonoBehaviour
     private void applyMagneticZoneToBody(){
         if (Input.GetKeyDown(";")) {
             
+        }
+    }
+
+    private void CheckMovment()
+    {
+        if (Mathf.Abs(rb.velocity.x) >= PlayerMaxSpeed)
+        {
+            rb.velocity = new Vector2(PlayerMaxSpeed*facingDirection, rb.velocity.y);
         }
     }
 
