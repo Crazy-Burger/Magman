@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   OrangeMagFieldRaidus: 5
+  gravity: 10
+  MaxForce: 50
