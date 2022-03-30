@@ -8,6 +8,7 @@ public class PlayerPos : MonoBehaviour
 {
     private GameMaster gm;
     // Start is called before the first frame update
+    public Rigidbody2D rb;
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
@@ -22,6 +23,22 @@ public class PlayerPos : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+        if(rb.position.y < -50f)
+        {
+            // Compute current level
+            int level = 1;//SceneManager.GetActiveScene().buildIndex = 1
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                level = 2;
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 5)
+            {
+                level = 3;
+            }
+            AnalyticsResult dieOnFalling = Analytics.CustomEvent("DieOnFalling" + level);
+            Debug.Log("analyticsResultDieOnFalling: " + dieOnFalling);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -33,16 +50,16 @@ public class PlayerPos : MonoBehaviour
                 var result = Analytics.CustomEvent(
                     "Death_Reason_Obstacle_Moving"
                 );
-                Debug.Log("moving obstacle");
-                Debug.Log(result);
+                // Debug.Log("moving obstacle");
+                // Debug.Log(result);
             }
             else
             {
                 var result = Analytics.CustomEvent(
                    "Death_Reason_Obstacle_static"
                 );
-                Debug.Log("static obstacle");
-                Debug.Log(result);
+                // Debug.Log("static obstacle");
+                // Debug.Log(result);
             }
             //record player death in analytics
             AnalyticsManager.instance.IncrementCheckpointDeaths(GameMaster.instance.lastCheckPointPos);
@@ -50,7 +67,7 @@ public class PlayerPos : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
-        Debug.Log(collision.collider.name);
+        // Debug.Log(collision.collider.name);
     }
 
 }

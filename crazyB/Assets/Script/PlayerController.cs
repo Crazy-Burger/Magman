@@ -122,7 +122,6 @@ public class PlayerController : MonoBehaviour
         MouseClick();
         applyMagneticZoneForceUp();
         UpdateAnimation();
-        
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
             
@@ -167,6 +166,7 @@ public class PlayerController : MonoBehaviour
             }
             withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
 
         if (Input.GetKeyDown("q") && withMagnetNegative)
@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
             }
             withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
         }
     }
 
@@ -191,7 +192,6 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
         CheckMovment();
         applyMagneticZoneToBody();
-        
     }
 
 
@@ -290,7 +290,7 @@ private void CheckInput()
             Vector3 positionhint = transform.position;
             positionhint.y += 2;
             GameObject prefab = Instantiate(floatingTextPrefeb, positionhint, Quaternion.identity);
-            prefab.GetComponentInChildren<TextMesh>().text = "I am flappy magnet bird  :)";
+            prefab.GetComponentInChildren<TextMesh>().text = "Try to Press J ";
 
         }
     }
@@ -589,7 +589,7 @@ private void CheckInput()
     //}
 
     private void applyMagneticZoneForceUp(){
-        if (Input.GetKey(";")) {
+        if (Input.GetKey("j")) {
             Debug.Log("press on Apply Magnetic");
             Debug.Log("is in magnetic zone: " + inMagneticZone);
             float magneticForce = inMagneticZone ? selfMagneticScale : 0.0f;
@@ -600,9 +600,9 @@ private void CheckInput()
             Debug.Log("h: " + h + ", v: " + v);
             rb.AddForce(new Vector2(0, v));
         }
-        else {
-            rb.gravityScale = origGravityScale;
-        }
+        //else {
+        //    rb.gravityScale = origGravityScale;
+        //}
     }
 
     private void applyMagneticZoneToBody(){
