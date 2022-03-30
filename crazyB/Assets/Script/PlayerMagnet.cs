@@ -7,8 +7,6 @@ public class PlayerMagnet : MonoBehaviour
     private float MagFieldRaidus;
     private float MaxMegnetForce;
     public GameData PlayerData;
-    public float range = 5.0f;
-    public float strength = 10.0f;
 
     public GameObject[] positiveObjectList;
     public GameObject[] negativeObjectList;
@@ -17,7 +15,6 @@ public class PlayerMagnet : MonoBehaviour
     void Start()
     {
         MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
-        
         this.MaxMegnetForce = PlayerData.MaxForce;
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
@@ -38,7 +35,7 @@ public class PlayerMagnet : MonoBehaviour
                 if (distance < MagFieldRaidus)
                 {
                     Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
-                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.positiveObjectList[i]) * (direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
                 }
             }
             // check distance between negative dynamic objects and the static object
@@ -46,8 +43,9 @@ public class PlayerMagnet : MonoBehaviour
                 distance = this.distToSphere(this.negativeObjectList[i]);
                 if (distance < MagFieldRaidus)
                 {
+                    Debug.Log("!!!");
                     Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
-                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.negativeObjectList[i]) * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
                 }
             }
         }
@@ -68,5 +66,12 @@ public class PlayerMagnet : MonoBehaviour
         dy = Mathf.Max(dy, ob.transform.position[1] - maxY);
         
         return Mathf.Sqrt(dx * dx + dy * dy);
+    }
+
+    private float minSideLength(GameObject ob)
+    {
+        float width = transform.localScale[0];
+        float height = transform.localScale[1];
+        return Mathf.Min(width, height);
     }
 }

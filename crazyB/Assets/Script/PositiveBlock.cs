@@ -26,16 +26,16 @@ public class PositiveBlock : MonoBehaviour
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
         
         float distance = this.distToSphere(this.Player);
-        if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.red)
+        if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
         }
 
-        if (distance < MagFieldRaidus && Player.gameObject.GetComponent<Renderer>().material.color == Color.blue)
+        if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
         {
             Vector2 direction = Player.transform.position - transform.position;
-            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+            Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
         }
         // check distance between positive dynamic objects and the static object
         for(int i=0; i < this.positiveObjectList.Length; i++){
@@ -43,7 +43,7 @@ public class PositiveBlock : MonoBehaviour
             if (distance < MagFieldRaidus)
             {
                 Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
-                this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.positiveObjectList[i]) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
             }
         }
         // check distance between negative dynamic objects and the static object
@@ -52,7 +52,7 @@ public class PositiveBlock : MonoBehaviour
             if (distance < MagFieldRaidus)
             {
                 Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
-                this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.negativeObjectList[i]) * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
             }
         }
 
@@ -81,5 +81,12 @@ public class PositiveBlock : MonoBehaviour
         dy = Mathf.Max(dy, ob.transform.position[1] - maxY);
         
         return Mathf.Sqrt(dx * dx + dy * dy);
+    }
+
+    private float minSideLength(GameObject ob)
+    {
+        float width = transform.localScale[0];
+        float height = transform.localScale[1];
+        return Mathf.Min(width, height);
     }
 }
