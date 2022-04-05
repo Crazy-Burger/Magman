@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetPositive = false;
             gameObject.GetComponent<Renderer>().material.color = Color.white;
+            playerState = PlayerStates.Postitive;
             Redmag.SetActive(false);
             Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
@@ -143,6 +144,7 @@ public class PlayerController : MonoBehaviour
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetNegative = false;
             gameObject.GetComponent<Renderer>().material.color = Color.white;
+            playerState = PlayerStates.Postitive;
             Redmag.SetActive(false);
             Bluemag.SetActive(false);
             // increase the ekey usage times in analytics
