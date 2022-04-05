@@ -45,6 +45,7 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
+            Debug.Log("1");
             if (collision.collider.name == "Moving_Obstacle")
             {
                 var result = Analytics.CustomEvent(
