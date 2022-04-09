@@ -11,6 +11,18 @@ public class PositiveBlock : MonoBehaviour
     public GameObject[] positiveObjectList;
     public GameObject[] negativeObjectList;
 
+
+    private LineController line;
+    [SerializeField]
+    private LineController linePrefab;
+
+    private void Awake()
+    {
+        line = Instantiate(linePrefab);
+        Debug.Log("Instantiate the prefab.");
+        line.AssignTarget(transform.position, Player.transform);
+        line.gameObject.SetActive(false);
+    }
     private void Start()
     {
         MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
@@ -18,6 +30,7 @@ public class PositiveBlock : MonoBehaviour
         this.Player = GameObject.FindWithTag("Player");
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
+       
     }
 
     private void FixedUpdate()
@@ -28,10 +41,14 @@ public class PositiveBlock : MonoBehaviour
         float distance = this.distToSphere(this.Player);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
         {
+            line.gameObject.SetActive(true);
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
         }
-
+        else if (distance >= MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
+        {
+            line.gameObject.SetActive(false);
+        }
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
         {
             Vector2 direction = Player.transform.position - transform.position;

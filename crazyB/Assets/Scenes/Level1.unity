@@ -19759,6 +19759,9 @@ MonoBehaviour:
   PlayerData: {fileID: 11400000, guid: be620ace5923fd848ba72bbdad96d50b, type: 2}
   positiveObjectList: []
   negativeObjectList: []
+  positiveObjects: []
+  allLines: []
+  linePrefab: {fileID: -2466509981071081715, guid: 336bb9efb89461b4293e62c4656e3c65, type: 3}
 --- !u!50 &2064130485 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 6275815712460294432, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
