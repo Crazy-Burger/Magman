@@ -60,6 +60,7 @@ public class FinishLine : MonoBehaviour
     public void CompeleteLevel()
     {
         Debug.Log("LEVEL CLEAR!");
+        SoundManager.PlaySound("pass");
         completeLevelUI.SetActive(true);
     }
 }
