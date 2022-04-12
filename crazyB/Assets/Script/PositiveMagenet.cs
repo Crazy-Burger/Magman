@@ -70,6 +70,7 @@ public class PositiveMagenet : MonoBehaviour
             || (collider.tag == "Player" && collider.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
             )
         {
+            SoundManager.PlaySound("acquire");
             for (int i = 0; i < magnetizedObjects.Count; i++)
             {
                 if (magnetizedObjects[i].collider == collider)
