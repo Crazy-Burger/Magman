@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a60e086c2cc6146b360e9cc6336262, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  OrangeMagFieldRaidus: 5
+  OrangeMagFieldRaidus: 4
   gravity: 10
-  MaxForce: 50
+  MaxForce: 27
