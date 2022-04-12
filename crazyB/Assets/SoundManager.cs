@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
                 audioSrc.PlayOneShot(PassLevelSound);
                 break;
             case "magenetfield":
-                audioSrc.PlayOneShot(MagenetFieldSound);
+                audioSrc.PlayOneShot(MagenetFieldSound,0.2f);
                 break;
         }
 

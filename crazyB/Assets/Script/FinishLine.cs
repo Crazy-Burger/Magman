@@ -15,6 +15,14 @@ public class FinishLine : MonoBehaviour
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
     }
 
+    IEnumerator ExecuteAfterTime()
+    {
+        Time.timeScale = .0000001f;
+        yield return new WaitForSeconds(1 * Time.timeScale);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
@@ -34,10 +42,13 @@ public class FinishLine : MonoBehaviour
             gm.lastCheckPointPos.x = -9;
             gm.lastCheckPointPos.y = -1.7f;
             //After build each level, go to File>>build setting, drag each scene in order
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+          
             //Restart();
             //Invoke("Restart", restartDelay);
 
+
+            SoundManager.PlaySound("pass");
+            StartCoroutine(ExecuteAfterTime());
             int currentLevel = 1;
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
@@ -60,7 +71,6 @@ public class FinishLine : MonoBehaviour
     public void CompeleteLevel()
     {
         Debug.Log("LEVEL CLEAR!");
-        SoundManager.PlaySound("pass");
         completeLevelUI.SetActive(true);
     }
 }
