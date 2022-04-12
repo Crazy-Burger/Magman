@@ -42,12 +42,7 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Restart Pressed...");
         string currentScene = SceneManager.GetActiveScene().name;
-        if(currentScene.Equals("Level1"))
-        {
-            GameMaster.instance.lastCheckPointPos.x = -9f;
-            GameMaster.instance.lastCheckPointPos.y = -1.5f;
-        }
-        else if(currentScene.Equals("Level2"))
+        if(currentScene == "TutorialLevel")
         {
             GameMaster.instance.lastCheckPointPos.x = -9f;
             GameMaster.instance.lastCheckPointPos.y = -1.5f;

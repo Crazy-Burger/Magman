@@ -122,7 +122,68 @@ public class PlayerController : MonoBehaviour
         MouseClick();
         applyMagneticZoneForceUp();
         UpdateAnimation();
-        eKey();
+        if (Input.GetKeyDown("e") && withMagnetPositive)
+        {
+            
+            GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
+           // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
+            // increase the ekey usage times in analytics
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
+        }
+
+        if (Input.GetKeyDown("e") && withMagnetNegative)
+        {
+
+            GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
+            Redmag.SetActive(false);
+            Bluemag.SetActive(false);
+            // increase the ekey usage times in analytics
+            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
+            playerState = PlayerStates.Normal;
+        }
+
+
+
+        //throwing out the magnet  -- subject to change since the magnet object is not properly owned by the player.
+        //press "r" to throw the magnet
+        if (Input.GetKeyDown("q") && withMagnetPositive)
+        {
+            GameObject magnet = Instantiate(magnetPositivePrefab, transform.position + new Vector3(3, 3, 0), magnetPositivePrefab.transform.rotation);
+            if (isFacingRight) {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = - transform.right * 20;
+            }
+            withMagnetPositive = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
+        }
+
+        if (Input.GetKeyDown("q") && withMagnetNegative)
+        {
+            GameObject magnet = Instantiate(magnetNegativePrefab, transform.position + new Vector3(3, 3, 0), magnetNegativePrefab.transform.rotation);
+            if (isFacingRight)
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = transform.right * 20;
+            }
+            else
+            {
+                magnet.GetComponent<Rigidbody2D>().velocity = -transform.right * 20;
+            }
+            withMagnetNegative = false;
+            gameObject.GetComponent<Renderer>().material.color = Color.black;
+            playerState = PlayerStates.Normal;
+        }
     }
 
     private void FixedUpdate()
@@ -254,7 +315,7 @@ private void CheckInput()
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (playerState == PlayerStates.Negative || playerState == PlayerStates.Postitive)
+        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
         {
 
         }
@@ -558,34 +619,4 @@ private void CheckInput()
         }
     }
 
-
-    private void eKey()
-    {
-        if (Input.GetKeyDown("e") && withMagnetPositive)
-        {
-            
-            GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(facingDirection * 3, 3, 0), magnetPositivePrefab.transform.rotation);
-            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetPositive = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
-            Redmag.SetActive(false);
-            Bluemag.SetActive(false);
-            // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
-            playerState = PlayerStates.Normal;
-        }
-
-        else if (Input.GetKeyDown("e") && withMagnetNegative)
-        {
-            GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(facingDirection * 3, 3, 0), magnetNegativePrefab.transform.rotation);
-            // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
-            withMagnetNegative = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
-            Redmag.SetActive(false);
-            Bluemag.SetActive(false);
-            // increase the ekey usage times in analytics
-            AnalyticsManager.instance.IncrementEkeyUsageTimes(GameMaster.instance.lastCheckPointPos);
-            playerState = PlayerStates.Normal;
-        }
-    }
 }
