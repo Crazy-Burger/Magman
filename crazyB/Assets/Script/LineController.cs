@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class LineController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private LineRenderer lr;
+    private Transform target;
+
+
+    private void Awake()
     {
-        
+        lr = GetComponent<LineRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AssignTarget(Vector3 startPosition, Transform newTarget)
     {
-        
+        lr.positionCount = 2;
+        lr.SetPosition(0, startPosition);
+        target = newTarget;
+    }
+
+    public void Update()
+    {
+        lr.SetPosition(1, target.position);
     }
 }

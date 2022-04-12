@@ -10,6 +10,10 @@ public class PositiveBlock : MonoBehaviour
     public GameObject Player;
     public GameObject[] positiveObjectList;
     public GameObject[] negativeObjectList;
+    [SerializeField]
+    private LineController linePrefab;
+
+    private LineController newLine;
 
     private void Start()
     {
@@ -18,6 +22,9 @@ public class PositiveBlock : MonoBehaviour
         this.Player = GameObject.FindWithTag("Player");
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
+        LineController newLine = Instantiate(linePrefab);
+        newLine.AssignTarget(transform.position, this.Player.transform);
+        newLine.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -42,6 +49,7 @@ public class PositiveBlock : MonoBehaviour
             distance = this.distToSphere(this.positiveObjectList[i]);
             if (distance < MagFieldRaidus)
             {
+                newLine.gameObject.SetActive(true);
                 Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
                 this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.positiveObjectList[i]) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
             }
@@ -51,6 +59,7 @@ public class PositiveBlock : MonoBehaviour
             distance = this.distToSphere(this.negativeObjectList[i]);
             if (distance < MagFieldRaidus)
             {
+                newLine.gameObject.SetActive(true);
                 Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
                 this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.negativeObjectList[i]) * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
             }
