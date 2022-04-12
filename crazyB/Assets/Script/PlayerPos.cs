@@ -10,10 +10,13 @@ public class PlayerPos : MonoBehaviour
     // Start is called before the first frame update
     public Rigidbody2D rb;
 
-    IEnumerator ExecuteAfterTime(float time)
+    IEnumerator ExecuteAfterTime()
     {
-        yield return new WaitForSeconds(time);
+        Time.timeScale = .0000001f;
+        yield return new WaitForSeconds(1 * Time.timeScale);
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     void Start()
@@ -52,7 +55,10 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
+
             SoundManager.PlaySound("death");
+            StartCoroutine(ExecuteAfterTime());
+            
             if (collision.collider.name == "Moving_Obstacle")
             {
                 var result = Analytics.CustomEvent(
@@ -71,7 +77,6 @@ public class PlayerPos : MonoBehaviour
             }
             //record player death in analytics
             AnalyticsManager.instance.IncrementCheckpointDeaths(GameMaster.instance.lastCheckPointPos);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         
         // Debug.Log(collision.collider.name);
