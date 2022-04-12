@@ -123,7 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-
 --- !u!1 &6737356
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,11 +222,6 @@ SpriteRenderer:
 --- !u!1 &20441265 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6275815712460294434, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
-  m_PrefabInstance: {fileID: 480681294}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &20441269 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 6275815712460294432, guid: 277b8ab1742e7544e932d4bace735018, type: 3}
   m_PrefabInstance: {fileID: 480681294}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &20441271
@@ -3646,6 +3640,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1214822305782087954, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.49104238
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214822305782087954, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13563742
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214822305782087954, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0146629
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214822305782087954, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214822305782087954, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.27
+      objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581808, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: completeLevelUI
       value: 
@@ -3653,6 +3667,22 @@ PrefabInstance:
     - target: {fileID: 3351284326510581809, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_Name
       value: FinishFlag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1816635
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4571084
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.5147245
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.27144578
       objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581813, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_RootOrder
