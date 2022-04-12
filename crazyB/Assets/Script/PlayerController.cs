@@ -315,7 +315,7 @@ private void CheckInput()
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (gameObject.GetComponent<Renderer>().material.color == Color.red || gameObject.GetComponent<Renderer>().material.color == Color.blue)
+        if (playerState == PlayerStates.Negative || playerState == PlayerStates.Postitive)
         {
 
         }
