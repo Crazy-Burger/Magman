@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OrangeMagFieldRaidus: 4
   gravity: 10
-  MaxForce: 27
+  MaxForce: 40
