@@ -11,6 +11,8 @@ public class LineController : MonoBehaviour
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        lr.sortingOrder = 2;
+
     }
 
     public void AssignTarget(Vector3 startPosition, Transform newTarget)
@@ -23,5 +25,6 @@ public class LineController : MonoBehaviour
     public void Update()
     {
         lr.SetPosition(1, target.position);
+        
     }
 }
