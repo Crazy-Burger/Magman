@@ -154,7 +154,6 @@ private void CheckInput()
             if(isGrounded || (amountOfJumpsLeft>0) || (amountOfJumpsLeft > 0 && !isGrounded))
             {
                 NormalJump();
-                SoundManager.PlaySound("jump");
                 AnalyticsManager.instance.IncrementCheckpointJumps(GameMaster.instance.lastCheckPointPos);
 
             }
@@ -263,7 +262,6 @@ private void CheckInput()
         {
             if (collision.gameObject.CompareTag("PositiveMagnet"))
             {
-                SoundManager.PlaySound("acquire");
                 withMagnetPositive = true;
                 Destroy(collision.gameObject);
                 //gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -274,7 +272,6 @@ private void CheckInput()
             }
             if (collision.gameObject.CompareTag("NegativeMagnet"))
             {
-                SoundManager.PlaySound("acquire");
                 withMagnetNegative = true;
                 Destroy(collision.gameObject);
                 //gameObject.GetComponent<Renderer>().material.color = Color.blue;
@@ -566,7 +563,7 @@ private void CheckInput()
     {
         if (Input.GetKeyDown("e") && withMagnetPositive)
         {
-            SoundManager.PlaySound("drop");
+            
             GameObject mg = Instantiate(magnetPositivePrefab, transform.position + new Vector3(facingDirection * 3, 3, 0), magnetPositivePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetPositive = false;
@@ -580,7 +577,6 @@ private void CheckInput()
 
         else if (Input.GetKeyDown("e") && withMagnetNegative)
         {
-            SoundManager.PlaySound("drop");
             GameObject mg = Instantiate(magnetNegativePrefab, transform.position + new Vector3(facingDirection * 3, 3, 0), magnetNegativePrefab.transform.rotation);
             // mg.GetComponent<Rigidbody2D>().AddForce(transform.forward * 10);
             withMagnetNegative = false;
