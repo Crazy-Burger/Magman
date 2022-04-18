@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 301918314611884223}
   - component: {fileID: 301918314611884220}
   - component: {fileID: 301918314611884208}
-  - component: {fileID: 301918314611884211}
   m_Layer: 0
   m_Name: StaticPositive
   m_TagString: Positive
@@ -150,20 +149,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   positiveObjectList: []
   negativeObjectList: []
---- !u!114 &301918314611884211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301918314611884221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc2bf2451c7004268907430ced7e2ed2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 5
-  strength: 25
+  linePrefab: {fileID: 7754136558105453162, guid: 336bb9efb89461b4293e62c4656e3c65, type: 3}
 --- !u!1 &6518719858448287058
 GameObject:
   m_ObjectHideFlags: 0

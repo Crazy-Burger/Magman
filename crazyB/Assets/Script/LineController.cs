@@ -6,6 +6,7 @@ public class LineController : MonoBehaviour
 {
     private LineRenderer lr;
     private Transform target;
+    private Transform start;
 
 
     private void Awake()
@@ -15,15 +16,17 @@ public class LineController : MonoBehaviour
 
     }
 
-    public void AssignTarget(Vector3 startPosition, Transform newTarget)
+    public void AssignTarget(Transform magnetTransform, Transform newTarget)
     {
         lr.positionCount = 2;
-        lr.SetPosition(0, startPosition);
+        //lr.SetPosition(0, startPosition);
         target = newTarget;
+        start = magnetTransform;
     }
 
     public void Update()
     {
+        lr.SetPosition(0, start.position);
         lr.SetPosition(1, target.position);
         
     }

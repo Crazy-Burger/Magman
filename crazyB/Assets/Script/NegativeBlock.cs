@@ -28,7 +28,7 @@ public class NegativeBlock : MonoBehaviour
         // line render initialize
         LineController newLine = Instantiate(linePrefab);
         this.newLine = newLine;
-        newLine.AssignTarget(transform.position, this.Player.transform);
+        newLine.AssignTarget(transform, this.Player.transform);
         newLine.transform.parent = gameObject.transform;
     }
 

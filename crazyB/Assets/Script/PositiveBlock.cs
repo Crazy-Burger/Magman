@@ -25,7 +25,7 @@ public class PositiveBlock : MonoBehaviour
         // line render initialize
         LineController newLine = Instantiate(linePrefab);
         this.newLine = newLine;
-        newLine.AssignTarget(transform.position, this.Player.transform);
+        newLine.AssignTarget(transform, this.Player.transform);
         newLine.transform.parent = gameObject.transform;
     }
 
@@ -64,7 +64,6 @@ public class PositiveBlock : MonoBehaviour
             distance = this.distToSphere(this.negativeObjectList[i]);
             if (distance < MagFieldRaidus)
             {
-                newLine.gameObject.SetActive(true);
                 Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
                 this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.negativeObjectList[i]) * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
             }
