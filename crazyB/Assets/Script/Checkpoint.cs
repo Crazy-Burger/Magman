@@ -15,6 +15,7 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //update time spent on last checkpoint, and restart timer 
+            SoundManager.PlaySound("checkpoint");
             TimeManager.instance.EndTimer();
             AnalyticsManager.instance.RecordCheckpointTimeSpent(GameMaster.instance.lastCheckPointPos, TimeManager.instance.TimeToString());
             TimeManager.instance.BeginTimer();
