@@ -11,6 +11,10 @@ public class PositiveBlock : MonoBehaviour
     public GameObject[] positiveObjectList;
     public GameObject[] negativeObjectList;
 
+    [SerializeField]
+    private LineController linePrefab;
+    private LineController newLine;
+
     private void Start()
     {
         MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
@@ -18,16 +22,22 @@ public class PositiveBlock : MonoBehaviour
         this.Player = GameObject.FindWithTag("Player");
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
+        // line render initialize
+        LineController newLine = Instantiate(linePrefab);
+        this.newLine = newLine;
+        newLine.AssignTarget(transform, this.Player.transform);
+        newLine.transform.parent = gameObject.transform;
     }
 
     private void FixedUpdate()
     {
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
-        
+        newLine.gameObject.SetActive(false);
         float distance = this.distToSphere(this.Player);
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive)
         {
+            newLine.gameObject.SetActive(true);
             SoundManager.PlaySound("magenetfield");
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
@@ -35,6 +45,7 @@ public class PositiveBlock : MonoBehaviour
 
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
         {
+            newLine.gameObject.SetActive(true);
             SoundManager.PlaySound("magenetfield");
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * -(Mathf.Lerp(0, this.MaxMegnetForce, distance)));
