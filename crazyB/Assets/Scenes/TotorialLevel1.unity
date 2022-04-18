@@ -14411,9 +14411,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinishFlag
       objectReference: {fileID: 0}
+    - target: {fileID: 3351284326510581809, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_Size.x
-      value: 0.42298377
+      value: 0.35800362
       objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_Size.y
@@ -14421,7 +14425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_Offset.x
-      value: -0.28850812
+      value: -15.299077
       objectReference: {fileID: 0}
     - target: {fileID: 3351284326510581811, guid: 1c39da090171c43f1a1246c58318ae97, type: 3}
       propertyPath: m_Offset.y
