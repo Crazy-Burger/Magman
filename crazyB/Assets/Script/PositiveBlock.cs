@@ -42,7 +42,7 @@ public class PositiveBlock : MonoBehaviour
             SoundManager.PlaySound("magenetfield");
             Vector2 direction = Player.transform.position - transform.position;
             Player.GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(Player) * (Mathf.Lerp(this.MaxMegnetForce, 0, distInterpolates)));
-            Debug.Log(Mathf.Lerp(this.MaxMegnetForce, 0, distInterpolates));
+            // Debug.Log(Mathf.Lerp(this.MaxMegnetForce, 0, distInterpolates));
         }
 
         if (distance < MagFieldRaidus && Player.gameObject.GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Negative)
