@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
         CheckIfCanJump();
         CheckJump();
         MouseClick();
-        applyMagneticZoneForceUp();
+        
         UpdateAnimation();
         eKey();
     }
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         ApplyMovement();
         CheckSurroundings();
         CheckMovment();
-        applyMagneticZoneToBody();
+        applyMagneticZoneForceUp();
     }
 
 
@@ -512,26 +512,8 @@ private void CheckInput()
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive"){
-    //        Debug.Log("Enter magnetic zone");
-    //        inMagneticZone = true;
-    //        GameObject gb = other.gameObject;
-    //        MagneticZone zone = gb.GetComponent<MagneticZone>();
-    //        selfMagneticScale = zone.magneticMoveForce;
-    //    }
-    //}
-
-    //private void OnTriggerExit2D(Collider2D other) {
-    //    if (other.gameObject.tag == "Positive") {
-    //        Debug.Log("Exit magnetic zone");
-    //        inMagneticZone = false;
-    //        selfMagneticScale = 0.0f;
-    //    }
-    //}
-
     private void applyMagneticZoneForceUp(){
-        if (Input.GetKey("j")) {
+        if (Input.GetButton("Jump")) {
             Debug.Log("press on Apply Magnetic");
             Debug.Log("is in magnetic zone: " + inMagneticZone);
             float magneticForce = inMagneticZone ? selfMagneticScale : 0.0f;
@@ -541,15 +523,6 @@ private void CheckInput()
             float v = inMagneticZone ? (magneticForce) : 0;
             Debug.Log("h: " + h + ", v: " + v);
             rb.AddForce(new Vector2(0, v));
-        }
-        //else {
-        //    rb.gravityScale = origGravityScale;
-        //}
-    }
-
-    private void applyMagneticZoneToBody(){
-        if (Input.GetKeyDown(";")) {
-            
         }
     }
 
