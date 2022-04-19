@@ -30,12 +30,15 @@ public class PlayerMagnet : MonoBehaviour
         if(!isNormal){
             bool isPositive = GameObject.FindWithTag("Player").GetComponent<PlayerController>().playerState == PlayerController.PlayerStates.Postitive;
             int direct = isPositive? 1 : -1;
+
             for(int i=0; i < this.positiveObjectList.Length; i++){
                 distance = this.distToSphere(this.positiveObjectList[i]);
                 if (distance < MagFieldRaidus)
                 {
+                    float distanceScale = Mathf.InverseLerp(MagFieldRaidus, 0f, minSideLength(this.positiveObjectList[i]));
+                    float attractionStrength = Mathf.Lerp(0f, MaxMegnetForce, distanceScale);
                     Vector2 direction = this.positiveObjectList[i].transform.position - transform.position;
-                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.positiveObjectList[i]) * (direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.positiveObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized *  (direct) * attractionStrength);
                 }
             }
             // check distance between negative dynamic objects and the static object
@@ -43,9 +46,10 @@ public class PlayerMagnet : MonoBehaviour
                 distance = this.distToSphere(this.negativeObjectList[i]);
                 if (distance < MagFieldRaidus)
                 {
-                    Debug.Log("!!!");
+                    float distanceScale = Mathf.InverseLerp(MagFieldRaidus, 0f, minSideLength(this.positiveObjectList[i]));
+                    float attractionStrength = Mathf.Lerp(0f, MaxMegnetForce, distanceScale);
                     Vector2 direction = this.negativeObjectList[i].transform.position - transform.position;
-                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized * minSideLength(this.negativeObjectList[i]) * (-direct) * (Mathf.Lerp(0, this.MaxMegnetForce, distance)));
+                    this.negativeObjectList[i].GetComponent<Rigidbody2D>().AddForce(direction.normalized  * (-direct) * attractionStrength);
                 }
             }
         }
