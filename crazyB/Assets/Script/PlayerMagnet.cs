@@ -14,7 +14,7 @@ public class PlayerMagnet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
+        this.MagFieldRaidus = PlayerData.OrangeMagFieldRaidus;
         this.MaxMegnetForce = PlayerData.MaxForce;
         this.positiveObjectList = GameObject.FindGameObjectsWithTag("PositiveMagnet");
         this.negativeObjectList = GameObject.FindGameObjectsWithTag("NegativeMagnet");
