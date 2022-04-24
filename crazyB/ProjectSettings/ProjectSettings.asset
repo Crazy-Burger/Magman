@@ -641,7 +641,6 @@ PlayerSettings:
     Purchasing: 0
     UDP: 0
     Unity Ads: 0
-    Legacy Analytics: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 

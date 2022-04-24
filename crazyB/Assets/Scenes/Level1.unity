@@ -2588,6 +2588,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 2064130479}
+    - target: {fileID: 5737546382019796700, guid: 4c5ee8557d8a56a47b0c5eee9ab8715b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6817778518612894487, guid: 4c5ee8557d8a56a47b0c5eee9ab8715b, type: 3}
       propertyPath: range
       value: 0.5
@@ -2598,11 +2602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7212163650144292780, guid: 4c5ee8557d8a56a47b0c5eee9ab8715b, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7212163650144292781, guid: 4c5ee8557d8a56a47b0c5eee9ab8715b, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7212163650144292782, guid: 4c5ee8557d8a56a47b0c5eee9ab8715b, type: 3}
       propertyPath: m_RootOrder
@@ -11020,7 +11024,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 79, y: 0.8}
+  m_AnchoredPosition: {x: 73.8, y: 1.7}
   m_SizeDelta: {x: 23.0927, y: 5.2291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &772242445
