@@ -36,4 +36,20 @@ public class MainMenu : MonoBehaviour
         //After build each level, go to File>>build setting, drag each scene in order
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
+    public void SelectLevel1()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void SelectLevel2()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void SelectLevel3()
+    {
+        SceneManager.LoadScene(5);
+    }
+    public void SelectLevel4()
+    {
+        SceneManager.LoadScene(7);
+    }
 }
