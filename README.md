@@ -1,7 +1,7 @@
 # Magman
 
 ## Game Idea
-A platform game in which the player uses magnetism (attract or repel) to overcome obstacles and reach the end. Magnets of the same color repel each other, while magnets with different colors attract each other. 
+A Unity platform game in which the player uses magnetism (attract or repel) to overcome obstacles and reach the end. Magnets of the same color repel each other, while magnets with different colors attract each other. 
 
 ### Mechanism
 A/D: Movement (left/right)
@@ -47,3 +47,5 @@ Yinghao Li: yli96468@usc.edu
 https://play.unity.com/mg/other/magman-0j
 ### Final Presentation Video
 https://youtu.be/qFxc3-sGSSs
+## Snapshot
+![snapshot](crazyB/Assets/Resource/snapshot.png)
