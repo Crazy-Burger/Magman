@@ -1,22 +1,23 @@
 # Magman
 
 ## Game Idea
-To make a platform game in which the player uses magnetism (attract or repel) to overcome obstacles and reach the end. Magnets of the same color repel each other, while magnets with different colors attract each other. 
+A platform game in which the player uses magnetism (attract or repel) to overcome obstacles and reach the end. Magnets of the same color repel each other, while magnets with different colors attract each other. 
 
 ### Mechanism
 A/D: Movement (left/right)
 <br>
-Space: Jump
+Space: Jump/Double Jump
 <br>
-E: Drop off the magnet
+E: Drop magnet
 
 ### Features
+* Pick up/drop off magnets.
+* Repulsion between magnets with the same color.
+* Attraction between magnets with different colors.
+* Magzone where jump makes character float in the air.
+* Animation, background music, level design.
+* Legacy analytics to track player statistics.
 
-### Game Objects
-| Name | Image | Description  |
-| ---------:| ---------:| ---------:|
-| Red Pickable Magnet | <img src="https://user-images.githubusercontent.com/97634591/165413394-cdee01a1-43c5-4cbb-a922-60a1d8bd1433.png" width = 64px>  | ...|
-| Red Magnet Bar | ... | ... |
 ## Team Member
 Difan Xue: difanxue@usc.edu
 <br>
